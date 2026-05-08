@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Completa Fácil — Copa 2026</title>
+<meta name="description" content="Gerencie seu álbum Panini da Copa 2026 e encontre pessoas para trocar figurinhas em São Carlos.">
+<meta name="theme-color" content="#0a0f0a">
+<!-- iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Completa Fácil">
+<!-- Open Graph -->
+<meta property="og:title" content="Completa Fácil — Álbum Copa 2026">
+<meta property="og:description" content="Gerencie seu álbum e encontre trocas de figurinhas em São Carlos.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg0:#0a0f0a;
+  --bg1:#111a11;
+  --bg2:#172017;
+  --bg3:#1e2b1e;
+  --border:#243524;
+  --border2:#2e4a2e;
+  --gold:#d4a017;
+  --gold2:#f0c040;
+  --red:#e8192c;
+  --blue:#1a56db;
+  --blue-light:#60a5fa;
+  --green-light:#4ade80;
+  --foil1:#c084fc;
+  --foil-bg:rgba(192,132,252,0.08);
+  --foil-border:rgba(192,132,252,0.4);
+  --text1:#f5f0e0;
+  --text2:#a0b090;
+  --text3:#506050;
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{-webkit-text-size-adjust:100%;touch-action:manipulation;}
+body{font-family:'Nunito',sans-serif;background:var(--bg0);color:var(--text1);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:contain;}
+
+/* ── Campo de futebol SVG — fundo fixo ── */
+.field-bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.055;}
+#login-screen,#app-screen{position:relative;z-index:1;}
+
+/* ═══════ LOGIN ═══════ */
+#login-screen{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:1.25rem 1rem;
+}
+.login-hero{
+  width:100%;max-width:400px;
+  background:linear-gradient(160deg,#1a2e1a 0%,#0d1a0d 100%);
+  border:1px solid var(--border2);border-bottom:none;
+  border-radius:var(--radius) var(--radius) 0 0;
+  padding:2rem 1.5rem 1.25rem;
+  display:flex;flex-direction:column;align-items:center;gap:0.75rem;
+  position:relative;overflow:hidden;
+}
+.login-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#e8192c 33%,#d4a017 33% 66%,#1a56db 66%);
+}
+.trophy-svg{width:64px;height:64px;filter:drop-shadow(0 4px 20px rgba(212,160,23,0.5));}
+.app-name{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:5px;color:var(--gold2);line-height:1;text-shadow:0 2px 12px rgba(212,160,23,0.3);}
+.app-tagline{font-size:0.68rem;color:var(--text3);font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.login-card{
+  background:#0d160d;border:1px solid var(--border2);border-top:none;
+  border-radius:0 0 var(--radius) var(--radius);
+  padding:1.5rem;width:100%;max-width:400px;
+}
+.tab-row{display:flex;background:var(--bg2);border-radius:var(--radius-sm);padding:3px;margin-bottom:1.25rem;gap:3px;}
+.tab-btn{flex:1;padding:0.55rem;border:none;background:transparent;border-radius:6px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:800;color:var(--text2);cursor:pointer;transition:all 0.18s;-webkit-tap-highlight-color:transparent;}
+.tab-btn.active{background:var(--red);color:#fff;}
+.form-label{display:block;font-size:0.68rem;font-weight:900;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.form-group{margin-bottom:0.85rem;}
+.form-input{
+  width:100%;padding:0.85rem 1rem;
+  border:1.5px solid var(--border2);border-radius:var(--radius-sm);
+  font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text1);
+  background:var(--bg2);transition:border-color 0.2s;outline:none;-webkit-appearance:none;
+}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:var(--text3);}
+.btn-primary{
+  width:100%;padding:0.9rem;background:var(--gold);color:#000;border:none;
+  border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;
+  cursor:pointer;margin-top:0.25rem;transition:background 0.18s,transform 0.1s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-primary:active{transform:scale(0.98);}
+.error-msg{background:rgba(232,25,44,0.12);border:1px solid rgba(232,25,44,0.3);color:#f87171;font-size:0.82rem;font-weight:700;padding:0.6rem 1rem;border-radius:var(--radius-sm);margin-bottom:0.85rem;display:none;}
+.login-footer{text-align:center;margin-top:1rem;font-size:0.72rem;color:var(--text3);font-weight:600;}
+
+/* ═══════ APP SHELL ═══════ */
+#app-screen{display:none;min-height:100vh;flex-direction:column;}
+
+.app-header{
+  background:#0a0f0a;border-bottom:2px solid var(--gold);
+  padding:0 1rem;display:flex;align-items:center;justify-content:space-between;
+  height:52px;position:sticky;top:0;z-index:200;
+}
+.header-brand{display:flex;align-items:center;gap:8px;}
+.header-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--gold2);}
+.header-logo-badge{font-size:0.55rem;background:var(--gold);color:#000;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
+.header-user{display:flex;align-items:center;gap:8px;}
+.user-avatar{width:32px;height:32px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.75rem;color:#fff;flex-shrink:0;}
+.user-name{font-size:0.82rem;font-weight:800;color:var(--text2);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-logout{background:var(--bg2);border:1px solid var(--border2);color:var(--text2);padding:0.28rem 0.7rem;border-radius:20px;font-size:0.68rem;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+
+/* HERO */
+.hero-banner{
+  background:linear-gradient(135deg,#0d1a0d 0%,#162816 60%,#0d1a0d 100%);
+  border-bottom:1px solid var(--border2);padding:1rem 1rem 0.85rem;
+  position:relative;overflow:hidden;
+}
+.hero-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--blue));}
+.hero-ball-bg{position:absolute;right:-8px;top:50%;transform:translateY(-50%);opacity:0.07;pointer-events:none;}
+.hero-greeting{font-size:0.62rem;color:var(--text3);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1px;color:var(--text1);margin-bottom:0.75rem;}
+/* Stats hero redesign */
+.stat-main{background:rgba(45,90,27,0.22);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:0.9rem 1rem 0.75rem;text-align:center;margin-bottom:7px;}
+.stat-main-num{font-family:'Bebas Neue',sans-serif;font-size:3.8rem;line-height:1;color:var(--green-light);}
+.stat-main-label{font-size:0.6rem;font-weight:900;color:rgba(74,222,128,0.55);text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;}
+.stat-main-bar-bg{height:7px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:0.6rem;}
+.stat-main-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold),#22c55e);border-radius:4px;transition:width 1s ease;}
+.stat-main-pct{font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:var(--gold2);margin-top:4px;}
+.stats-row-sub{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.stat-card-sub{background:rgba(20,30,20,0.5);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.5rem 0.6rem;text-align:center;}
+.stat-num-sub{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;line-height:1;}
+.stat-num-sub.s-red{color:#f87171;}
+.stat-num-sub.s-gold{color:var(--gold2);}
+.stat-label-sub{font-size:0.55rem;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;}
+
+/* Popup de boas-vindas / configuração de trocas */
+.popup-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:1rem;
+}
+.popup-box{
+  background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);
+  width:100%;max-width:420px;max-height:90vh;overflow-y:auto;
+  padding:1.5rem 1.25rem 1.25rem;
+}
+.popup-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--gold2);margin-bottom:4px;}
+.popup-desc{font-size:0.8rem;color:var(--text2);line-height:1.5;margin-bottom:1.1rem;}
+.popup-ok{
+  width:100%;padding:0.9rem;margin-top:1rem;
+  background:var(--gold);color:#000;border:none;border-radius:var(--radius-sm);
+  font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* NAV — barra inferior mobile */
+.nav-tabs{
+  display:none;/* começa oculta — JS mostra ao entrar no app */
+  background:#0a0f0a;border-top:1px solid var(--border2);
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.nav-tab{
+  flex:1;padding:0.6rem 0.3rem;border:none;background:transparent;
+  font-family:'Nunito',sans-serif;font-size:0.6rem;font-weight:800;color:var(--text3);
+  cursor:pointer;border-top:2px solid transparent;
+  white-space:nowrap;transition:all 0.18s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-tab.active{color:var(--gold2);border-top-color:var(--gold);}
+.nav-icon{font-size:18px;line-height:1;}
+
+.content-area{padding:1rem;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));flex:1;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* ── INÍCIO ── */
+.progress-bar-wrap{background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);padding:1rem 1.1rem;margin-bottom:0.85rem;}
+.progress-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.7rem;}
+.progress-title{font-weight:800;font-size:0.85rem;color:var(--text1);}
+.progress-pct{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold2);line-height:1;}
+.progress-pct-sub{font-size:0.62rem;color:var(--text3);font-weight:700;text-align:right;}
+.progress-bar-bg{height:10px;background:var(--bg3);border-radius:5px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold),#22c55e);border-radius:5px;transition:width 1s ease;}
+.tips-card{background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);padding:0.9rem 1.1rem;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:1.5px;color:var(--gold2);margin-bottom:0.7rem;}
+.tip-item{display:flex;align-items:flex-start;gap:10px;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+.tip-item:last-child{border-bottom:none;}
+.tip-num{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#000;background:var(--gold);border-radius:5px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.tip-text{font-size:0.8rem;color:var(--text2);line-height:1.5;font-weight:600;}
+.tip-text strong{color:var(--text1);}
+
+/* ── COLEÇÃO ── */
+.colecao-header{margin-bottom:0.85rem;}
+.colecao-search{width:100%;padding:0.78rem 1rem;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text1);font-family:'Nunito',sans-serif;font-size:0.95rem;outline:none;-webkit-appearance:none;}
+.colecao-search:focus{border-color:var(--gold);}
+.colecao-search::placeholder{color:var(--text3);}
+.filter-row{display:flex;gap:6px;margin-bottom:0.85rem;overflow-x:auto;padding-bottom:2px;}
+.filter-btn{padding:0.4rem 0.9rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;font-family:'Nunito',sans-serif;font-size:0.72rem;font-weight:800;color:var(--text2);cursor:pointer;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:all 0.18s;}
+.filter-btn.active{background:var(--bg3);border-color:var(--border2);color:var(--text1);}
+.filter-btn.f-red.active{background:rgba(232,25,44,0.2);border-color:var(--red);color:#f87171;}
+.filter-btn.f-green.active{background:rgba(74,222,128,0.15);border-color:#4ade80;color:#4ade80;}
+.filter-btn.f-gold.active{background:rgba(212,160,23,0.15);border-color:var(--gold2);color:var(--gold2);}
+.legenda{display:flex;gap:10px;margin-bottom:0.85rem;flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:0.66rem;font-weight:700;color:var(--text2);}
+.leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+.leg-dot.d-vazia{background:var(--bg3);border:1px solid var(--border);}
+.leg-dot.d-tenho{background:rgba(74,222,128,0.3);border:1px solid rgba(74,222,128,0.5);}
+.leg-dot.d-rep{background:rgba(212,160,23,0.2);border:1px solid rgba(212,160,23,0.5);}
+.leg-dot.d-brilhante{background:var(--foil-bg);border:1px solid var(--foil-border);}
+
+.selecao-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;}
+.selecao-header-row{display:flex;align-items:center;justify-content:space-between;padding:0.8rem 0.9rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;}
+.selecao-header-row:active{background:var(--bg2);}
+.selecao-left{display:flex;align-items:center;gap:9px;}
+.selecao-flag{font-size:1.5rem;line-height:1;}
+.selecao-name{font-weight:800;font-size:0.9rem;color:var(--text1);}
+.selecao-group{font-size:0.62rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+.selecao-right{display:flex;align-items:center;gap:7px;}
+.selecao-pct{font-family:'Bebas Neue',sans-serif;font-size:0.92rem;color:var(--gold2);min-width:34px;text-align:right;}
+.selecao-count{font-size:0.68rem;color:var(--text3);font-weight:700;}
+.mini-bar-bg{width:46px;height:4px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.mini-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:3px;transition:width 0.4s;}
+.selecao-chevron{font-size:0.68rem;color:var(--text3);transition:transform 0.2s;margin-left:2px;}
+.selecao-card.open .selecao-chevron{transform:rotate(180deg);}
+.figurinhas-grid-wrap{display:none;padding:0.7rem 0.9rem 0.9rem;border-top:1px solid var(--border);background:var(--bg0);}
+.selecao-card.open .figurinhas-grid-wrap{display:block;}
+.fig-hint{font-size:0.62rem;font-weight:700;color:var(--text3);margin-bottom:9px;text-transform:uppercase;letter-spacing:0.8px;}
+.fig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+@media(min-width:420px){.fig-grid{grid-template-columns:repeat(auto-fill,minmax(82px,1fr));}}
+
+.fig-item{background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;padding:6px 4px 5px;text-align:center;transition:border-color 0.15s;}
+.fig-item.tenho{background:rgba(22,163,74,0.1);border-color:rgba(74,222,128,0.4);}
+.fig-item.repetida{background:rgba(212,160,23,0.08);border-color:rgba(212,160,23,0.4);}
+.fig-item.brilhante{background:var(--foil-bg);border-color:var(--foil-border);}
+.fig-item.brilhante.tenho{background:rgba(192,132,252,0.14);border-color:var(--foil1);}
+.fig-item.brilhante.repetida{background:rgba(192,132,252,0.1);border-color:var(--foil1);}
+.fig-num{font-family:'Bebas Neue',sans-serif;font-size:0.8rem;line-height:1;display:block;margin-bottom:2px;color:var(--text3);}
+.fig-item.tenho .fig-num{color:var(--green-light);}
+.fig-item.repetida .fig-num{color:var(--gold2);}
+.fig-item.brilhante .fig-num,.fig-item.brilhante.tenho .fig-num,.fig-item.brilhante.repetida .fig-num{color:var(--foil1);}
+.fig-brilhante-badge{font-size:0.46rem;color:var(--foil1);font-weight:900;display:block;margin-bottom:1px;text-transform:uppercase;}
+.fig-name{font-size:0.52rem;font-weight:700;color:var(--text2);display:block;margin-bottom:5px;line-height:1.2;height:2.2em;overflow:hidden;}
+.fig-stepper{display:flex;align-items:center;justify-content:center;gap:3px;}
+.step-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text1);font-size:1.1rem;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background 0.15s;flex-shrink:0;font-family:'Nunito',sans-serif;-webkit-tap-highlight-color:transparent;}
+.step-btn.minus:active{background:rgba(232,25,44,0.3);}
+.step-btn.plus:active{background:rgba(74,222,128,0.2);}
+.step-val{font-family:'Bebas Neue',sans-serif;font-size:1rem;min-width:14px;text-align:center;line-height:1;color:var(--text2);}
+.fig-item.tenho .step-val{color:var(--green-light);}
+.fig-item.repetida .step-val{color:var(--gold2);}
+
+/* ═══════ TROCAS ═══════ */
+.troca-section{background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);padding:0.9rem 1rem;margin-bottom:0.85rem;}
+.troca-section-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1.5px;color:var(--gold2);margin-bottom:3px;}
+.troca-desc{font-size:0.76rem;color:var(--text2);line-height:1.5;margin-bottom:0.7rem;}
+
+/* Par de toggles */
+.toggle-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* Estado BASE — apagado, sem dúvida de que não está selecionado */
+.tbtn{
+  padding:0.85rem 0.65rem;
+  background:var(--bg2);
+  border:2px solid var(--border2);
+  border-radius:var(--radius-sm);
+  font-family:'Nunito',sans-serif;font-size:0.8rem;font-weight:700;
+  color:var(--text3);
+  cursor:pointer;text-align:center;line-height:1.4;
+  transition:all 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.tbtn:active{transform:scale(0.97);}
+/* Estados ativos com !important para garantir override */
+.tbtn.on-green{background:#14532d!important;border-color:#4ade80!important;color:#4ade80!important;font-weight:900!important;box-shadow:0 0 0 1px #4ade80!important;}
+.tbtn.on-gold {background:#3d2e00!important;border-color:#f0c040!important;color:#f0c040!important;font-weight:900!important;box-shadow:0 0 0 1px #f0c040!important;}
+.tbtn.on-blue {background:#1e3a5f!important;border-color:#60a5fa!important;color:#60a5fa!important;font-weight:900!important;box-shadow:0 0 0 1px #60a5fa!important;}
+
+/* autosave toast */
+.autosave-toast{
+  position:fixed;bottom:calc(64px + env(safe-area-inset-bottom,0px) + 10px);left:50%;transform:translateX(-50%);
+  background:rgba(22,163,74,0.95);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:800;
+  padding:0.5rem 1.2rem;border-radius:20px;
+  opacity:0;transition:opacity 0.25s;pointer-events:none;z-index:999;white-space:nowrap;
+}
+.autosave-toast.show{opacity:1;}
+
+.fig-troca-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:0.7rem;}
+@media(min-width:420px){.fig-troca-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));}}
+.fig-troca-item,.fig-preciso-item{
+  background:var(--bg2);border:1.5px solid var(--border);border-radius:7px;
+  padding:5px 3px 4px;text-align:center;cursor:pointer;user-select:none;
+  -webkit-tap-highlight-color:transparent;transition:all 0.15s;
+}
+.fig-troca-item.sel-of{background:rgba(212,160,23,0.12);border-color:var(--gold);}
+.fig-troca-item.sel-of .fig-num{color:var(--gold2);}
+.fig-troca-item.sel-of .fig-troca-check{color:var(--gold2);}
+.fig-preciso-item.sel-pr{background:rgba(232,25,44,0.1);border-color:var(--red);}
+.fig-preciso-item.sel-pr .fig-num{color:#f87171;}
+.fig-troca-check{font-size:0.68rem;margin-bottom:1px;color:var(--text3);}
+.preciso-flags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:0.7rem;overflow-x:auto;padding-bottom:2px;}
+.preciso-flag-btn{padding:0.26rem 0.5rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;font-size:0.7rem;cursor:pointer;display:flex;align-items:center;gap:3px;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:all 0.15s;}
+.preciso-flag-btn span{font-size:0.58rem;font-weight:800;color:var(--text2);}
+.preciso-flag-btn.active{border-color:var(--red);background:rgba(232,25,44,0.12);}
+.preciso-flag-btn.active span{color:#f87171;}
+.sem-repetidas{text-align:center;padding:1.25rem;font-size:0.8rem;color:var(--text3);font-weight:700;}
+
+/* ═══════ MATCHES ═══════ */
+.match-empty{text-align:center;padding:2rem 1.25rem;background:var(--bg1);border:1px solid var(--border2);border-radius:var(--radius);}
+.match-empty-icon{font-size:2rem;margin-bottom:0.5rem;}
+.match-empty-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--text1);margin-bottom:0.3rem;}
+.match-empty-text{font-size:0.78rem;color:var(--text2);max-width:230px;margin:0 auto;line-height:1.6;}
+.match-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;}
+.match-card-header{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 0.9rem;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.match-card-header:active{background:var(--bg2);}
+.match-user-info{display:flex;align-items:center;gap:9px;}
+.match-avatar{width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.8rem;color:#fff;flex-shrink:0;}
+.match-username{font-weight:800;font-size:0.9rem;color:var(--text1);}
+.match-sub{font-size:0.65rem;color:var(--text3);font-weight:700;}
+.match-score{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--green-light);line-height:1;}
+.match-score-label{font-size:0.58rem;color:var(--text3);font-weight:800;text-transform:uppercase;}
+.match-chevron{font-size:0.68rem;color:var(--text3);transition:transform 0.2s;margin-left:7px;}
+.match-card.open .match-chevron{transform:rotate(180deg);}
+.match-detail{display:none;padding:0.7rem 0.9rem 0.9rem;border-top:1px solid var(--border);background:var(--bg0);}
+.match-card.open .match-detail{display:block;}
+.match-sessoes{display:none;padding:0.6rem 0.9rem;border-top:1px solid var(--border);background:var(--bg2);}
+.match-card.open .match-sessoes{display:block;}
+.match-sem-horario{display:none;}
+.match-card.open .match-sem-horario{display:block;}
+.match-detail-title{font-size:0.65rem;font-weight:900;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.match-pair-list{display:flex;flex-direction:column;gap:5px;}
+.match-pair{display:flex;align-items:center;gap:7px;background:var(--bg2);border-radius:6px;padding:6px 9px;font-size:0.76rem;font-weight:700;}
+.pair-give{color:var(--gold2);font-family:'Bebas Neue',sans-serif;font-size:0.88rem;}
+.pair-arrow{color:var(--text3);}
+.pair-get{color:#f87171;font-family:'Bebas Neue',sans-serif;font-size:0.88rem;}
+.pair-names{color:var(--text2);font-size:0.66rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-refresh{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:0.75rem;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:800;color:var(--text2);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all 0.18s;margin-bottom:0.85rem;}
+
+/* ═══════ SESSÕES ═══════ */
+.sessao-dia-titulo{
+  font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:1.5px;
+  color:var(--text3);text-transform:uppercase;margin:0.75rem 0 0.4rem;
+}
+.sessao-dia-titulo:first-child{margin-top:0;}
+.sessao-item{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:0.6rem 0.75rem;margin-bottom:6px;gap:8px;
+}
+.sessao-info{flex:1;}
+.sessao-hora{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--text1);line-height:1;}
+.sessao-local-btns{display:flex;gap:5px;flex-shrink:0;}
+.loc-btn{
+  padding:0.3rem 0.55rem;border-radius:6px;font-size:0.68rem;font-weight:800;
+  font-family:'Nunito',sans-serif;border:1.5px solid var(--border2);
+  background:var(--bg3);color:var(--text3);cursor:pointer;
+  transition:all 0.15s;-webkit-tap-highlight-color:transparent;white-space:nowrap;
+}
+.loc-btn.sel-iguatemi{background:#14532d;border-color:#4ade80;color:#4ade80;}
+.loc-btn.sel-praca{background:#1e3a5f;border-color:#60a5fa;color:#60a5fa;}
+
+/* Status de confirmação nos matches */
+/* match-sessoes movido para cima, controlado pelo open */
+.match-sessao-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.45rem 0;border-bottom:1px solid var(--border);gap:8px;
+}
+.match-sessao-item:last-child{border-bottom:none;}
+.match-sessao-info{font-size:0.75rem;font-weight:700;color:var(--text1);}
+.match-sessao-local{font-size:0.65rem;color:var(--text3);font-weight:600;}
+.status-badge{
+  font-size:0.65rem;font-weight:900;font-family:'Nunito',sans-serif;
+  padding:0.4rem 0.75rem;border-radius:20px;white-space:nowrap;flex-shrink:0;cursor:pointer;
+  border:1.5px solid;-webkit-tap-highlight-color:transparent;
+  min-height:36px;display:inline-flex;align-items:center;
+}
+/* Progresso de confirmação — cores indicam quão perto está do encontro */
+.status-confirmar{ /* aceitar sugestão recebida — verde, ação positiva */
+  background:rgba(74,222,128,0.15);border-color:#4ade80;color:#4ade80;}
+.status-sugerir{   /* propor um horário — cinza neutro, ainda não começou */
+  background:var(--bg3);border-color:var(--border2);color:var(--text2);}
+.status-pendente{  /* aguardando resposta — azul, estado neutro de espera */
+  background:rgba(96,165,250,0.12);border-color:var(--blue-light);color:var(--blue-light);}
+.status-recebido{  /* sugestão recebida, precisa de ação — amarelo, atenção */
+  background:rgba(212,160,23,0.15);border-color:var(--gold2);color:var(--gold2);}
+.status-confirmado{/* concluído — verde sólido */
+  background:rgba(22,163,74,0.25);border-color:#4ade80;color:#4ade80;font-weight:900;}
+.status-cancelar{background:transparent;border-color:var(--text3);color:var(--text3);font-size:0.58rem;}
+.status-cancelar:hover{border-color:#f87171;color:#f87171;}
+.status-rejeitar{background:transparent;border-color:#f87171;color:#f87171;font-size:0.58rem;}
+.badge-group{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.match-aviso-menor{
+  font-size:0.72rem;color:var(--gold2);font-weight:800;
+  background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);
+  border-radius:var(--radius-sm);padding:0.6rem 0.75rem;margin-bottom:0.85rem;
+  line-height:1.5;
+}
+.matches-sem-sessoes{
+  background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.3);
+  border-radius:var(--radius);padding:1.5rem 1.25rem;text-align:center;
+  margin-bottom:0.85rem;
+}
+.matches-sem-sessoes-icon{font-size:1.8rem;margin-bottom:0.4rem;}
+.matches-sem-sessoes-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold2);margin-bottom:0.3rem;}
+.matches-sem-sessoes-text{font-size:0.78rem;color:var(--text2);line-height:1.5;}
+</style>
+</head>
+<body>
+
+<!-- Campo de futebol — fundo -->
+<svg class="field-bg" viewBox="0 0 400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <rect width="400" height="700" fill="#1a3a1a"/>
+  <rect x="0" y="0"   width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="100" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="200" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="300" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="400" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="500" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="0" y="600" width="400" height="50" fill="#1e401e" opacity="0.5"/>
+  <rect x="30" y="30" width="340" height="640" rx="4" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="30" y1="350" x2="370" y2="350" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="200" cy="350" r="60" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="200" cy="350" r="3" fill="#ffffff"/>
+  <rect x="110" y="30"  width="180" height="80" rx="2" fill="none" stroke="#ffffff" stroke-width="1.2"/>
+  <rect x="150" y="30"  width="100" height="40" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <rect x="110" y="590" width="180" height="80" rx="2" fill="none" stroke="#ffffff" stroke-width="1.2"/>
+  <rect x="150" y="630" width="100" height="40" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="200" cy="118" r="2" fill="#ffffff"/>
+  <circle cx="200" cy="582" r="2" fill="#ffffff"/>
+  <path d="M110 110 Q200 148 290 110" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <path d="M110 590 Q200 552 290 590" fill="none" stroke="#ffffff" stroke-width="1"/>
+</svg>
+
+<div class="autosave-toast" id="autosave-toast">✓ Salvo automaticamente</div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-hero">
+    <svg class="trophy-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0c040"/><stop offset="100%" stop-color="#a07010"/></linearGradient></defs>
+      <rect x="24" y="60" width="24" height="5" rx="2" fill="url(#tg)"/>
+      <rect x="20" y="56" width="32" height="5" rx="2" fill="url(#tg)"/>
+      <rect x="31" y="44" width="10" height="14" rx="2" fill="url(#tg)"/>
+      <path d="M18 10 Q18 42 36 42 Q54 42 54 10 Z" fill="url(#tg)"/>
+      <path d="M18 12 Q8 12 8 22 Q8 30 18 30" fill="none" stroke="url(#tg)" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M54 12 Q64 12 64 22 Q64 30 54 30" fill="none" stroke="url(#tg)" stroke-width="3.5" stroke-linecap="round"/>
+      <polygon points="36,15 38,21 44,21 39.5,25 41,31 36,27.5 31,31 32.5,25 28,21 34,21" fill="#fff" opacity="0.9"/>
+    </svg>
+    <div class="app-name">COMPLETA FÁCIL</div>
+    <div class="app-tagline">Álbum da Copa 2026</div>
+  </div>
+  <div class="login-card">
+    <div class="tab-row">
+      <button class="tab-btn active" id="tab-login-btn" onclick="showLoginTab('login')">Entrar</button>
+      <button class="tab-btn" id="tab-cadastro-btn" onclick="showLoginTab('cadastro')">Cadastrar</button>
+    </div>
+    <div id="error-msg" class="error-msg"></div>
+    <div id="form-login">
+      <div class="form-group"><label class="form-label">Usuário</label><input type="text" id="login-user" class="form-input" placeholder="Seu apelido" autocomplete="username" inputmode="text"></div>
+      <div class="form-group"><label class="form-label">Senha</label><input type="password" id="login-pass" class="form-input" placeholder="••••••••" autocomplete="current-password" inputmode="text"></div>
+      <button class="btn-primary" onclick="doLogin()">⚽ Entrar</button>
+    </div>
+    <div id="form-cadastro" style="display:none">
+      <div class="form-group"><label class="form-label">Usuário</label><input type="text" id="cad-user" class="form-input" placeholder="Ex: joao-silva (3–20 caracteres)" inputmode="text" oninput="validarUsername(this)" autocomplete="username" autocapitalize="none" spellcheck="false"><div id="username-hint" style="font-size:0.68rem;color:var(--text3);font-weight:700;margin-top:4px">Use letras minúsculas, números e hífen.</div></div>
+      <div class="form-group"><label class="form-label">Senha</label><input type="password" id="cad-pass" class="form-input" placeholder="Mínimo 6 caracteres" autocomplete="new-password"></div>
+      <div class="form-group"><label class="form-label">Confirmar senha</label><input type="password" id="cad-pass2" class="form-input" placeholder="Repita a senha" autocomplete="new-password"></div>
+      <button class="btn-primary" onclick="doCadastro()">🎉 Criar conta</button>
+    </div>
+    
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app-screen">
+  <div class="app-header">
+    <div class="header-brand">
+      <div class="header-logo">COMPLETA FÁCIL</div>
+      <div class="header-logo-badge">Copa 2026</div>
+    </div>
+    <div class="header-user">
+      <div class="user-avatar" id="header-avatar">--</div>
+      <span class="user-name" id="header-username">Usuário</span>
+      <button class="btn-logout" onclick="doLogout()">Sair</button>
+    </div>
+  </div>
+
+  <div class="hero-banner">
+    <div class="hero-stripe"></div>
+    <svg class="hero-ball-bg" width="110" height="110" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="55" cy="55" r="52" fill="none" stroke="#d4a017" stroke-width="2"/>
+      <polygon points="55,18 67,38 55,50 43,38" fill="none" stroke="#d4a017" stroke-width="1.5"/>
+      <polygon points="55,92 67,72 55,60 43,72" fill="none" stroke="#d4a017" stroke-width="1.5"/>
+      <polygon points="18,55 38,43 50,55 38,67" fill="none" stroke="#d4a017" stroke-width="1.5"/>
+      <polygon points="92,55 72,43 60,55 72,67" fill="none" stroke="#d4a017" stroke-width="1.5"/>
+    </svg>
+    <div class="hero-greeting">Bem-vindo de volta,</div>
+    <div class="hero-name" id="hero-name">Colecionador!</div>
+    <div class="stat-main">
+      <div class="stat-main-num" id="stat-tenho">0</div>
+      <div class="stat-main-label">figurinhas no álbum</div>
+      <div class="stat-main-bar-bg"><div class="stat-main-bar-fill" id="prog-fill-hero" style="width:0%"></div></div>
+      <div class="stat-main-pct" id="stat-tenho-pct">0% completo · 0 de 980</div>
+    </div>
+    <div class="stats-row-sub">
+      <div class="stat-card-sub"><div class="stat-num-sub s-red" id="stat-falta">980</div><div class="stat-label-sub">Faltam</div></div>
+      <div class="stat-card-sub"><div class="stat-num-sub s-gold" id="stat-repetidas">0</div><div class="stat-label-sub">Repetidas</div></div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('inicio')"><span class="nav-icon">🏠</span>Início</button>
+    <button class="nav-tab" onclick="showTab('colecao')"><span class="nav-icon">📋</span>Coleção</button>
+    <button class="nav-tab" onclick="showTab('trocas')"><span class="nav-icon">🔄</span>Trocas</button>
+    <button class="nav-tab" onclick="showTab('pessoas')"><span class="nav-icon">👥</span>Matches</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- INÍCIO -->
+    <div class="tab-content active" id="tab-inicio">
+      <div class="tips-card">
+        <div class="section-title">Como usar</div>
+        <div class="tip-item"><div class="tip-num">1</div><div class="tip-text"><strong>Coleção:</strong> Use <strong>+</strong> e <strong>−</strong> para marcar quantas figurinhas você tem de cada.</div></div>
+        <div class="tip-item"><div class="tip-num">2</div><div class="tip-text"><strong>Trocas:</strong> Configure o que você oferece e o que precisa.</div></div>
+        <div class="tip-item"><div class="tip-num">3</div><div class="tip-text"><strong>Matches:</strong> O app encontra quem tem o que você precisa — e precisa do que você tem!</div></div>
+        <div class="tip-item"><div class="tip-num">4</div><div class="tip-text"><strong>Ponto de encontro:</strong> Trocas no Shopping Iguatemi e na Praça XV, São Carlos.</div></div>
+      </div>
+    </div>
+
+    <!-- COLEÇÃO -->
+    <div class="tab-content" id="tab-colecao">
+      <div class="colecao-header">
+        <input type="text" class="colecao-search" id="search-selecao" placeholder="Buscar seleção, jogador ou código…" oninput="filtrarSelecoes()">
+      </div>
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="setFiltro('todas',this)">Todas</button>
+        <button class="filter-btn f-red" onclick="setFiltro('incompletas',this)">Incompletas</button>
+        <button class="filter-btn f-gold" onclick="setFiltro('repetidas',this)">Repetidas</button>
+        <button class="filter-btn f-green" onclick="setFiltro('tenho',this)">Coletadas</button>
+      </div>
+      <div class="legenda">
+        <div class="leg-item"><div class="leg-dot d-vazia"></div>Falta</div>
+        <div class="leg-item"><div class="leg-dot d-tenho"></div>Tenho</div>
+        <div class="leg-item"><div class="leg-dot d-rep"></div>Repetida</div>
+        <div class="leg-item"><div class="leg-dot d-brilhante"></div>✨ Brilhante</div>
+      </div>
+      <div id="selecoes-container"></div>
+    </div>
+
+    <!-- TROCAS -->
+    <div class="tab-content" id="tab-trocas">
+      <div class="troca-section">
+        <div class="troca-section-title">Preferência de Raridade</div>
+        <div class="troca-desc">Como você aceita trocar suas figurinhas brilhantes?</div>
+        <div class="toggle-pair">
+          <button class="tbtn" id="rar-qualquer" onclick="setRaridade('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.68rem;font-weight:600">Brilhante troca com comum</span></button>
+          <button class="tbtn" id="rar-igual"    onclick="setRaridade('igual')">⚖️ Mesmo nível<br><span style="font-size:0.68rem;font-weight:600">Brilhante só com brilhante</span></button>
+        </div>
+      </div>
+      <div class="troca-section">
+        <div class="troca-section-title" style="margin-bottom:3px">Ofereço para troca</div>
+        <div class="troca-desc" style="margin-bottom:0.6rem">O que você disponibiliza?</div>
+        <div class="toggle-pair">
+          <button class="tbtn" id="of-modo-all"    onclick="setModoOfereco('all')">✅ Todas minhas repetidas</button>
+          <button class="tbtn" id="of-modo-custom" onclick="setModoOfereco('custom')">🎯 Apenas algumas</button>
+        </div>
+        <div id="ofereco-custom-area" style="display:none"></div>
+      </div>
+      <div class="troca-section">
+        <div class="troca-section-title" style="margin-bottom:3px">Preciso destas figurinhas</div>
+        <div class="troca-desc" style="margin-bottom:0.6rem">O que você aceita receber?</div>
+        <div class="toggle-pair">
+          <button class="tbtn" id="pr-modo-all"    onclick="setModoPreciso('all')">✅ Todas que não tenho</button>
+          <button class="tbtn" id="pr-modo-custom" onclick="setModoPreciso('custom')">🎯 Figurinhas específicas</button>
+        </div>
+        <div id="preciso-custom-area" style="display:none">
+          <div class="preciso-flags" id="preciso-flags" style="margin-top:0.7rem"></div>
+          <div id="preciso-grid-container"></div>
+        </div>
+      </div>
+
+      <div class="troca-section">
+        <div class="troca-section-title" style="margin-bottom:3px">Quando posso comparecer</div>
+        <div class="troca-desc" style="margin-bottom:0.75rem">Marque as sessões que você pretende ir e onde estará. Isso aparece nos seus matches.</div>
+        <div id="sessoes-container-trocas"></div>
+      </div>
+    </div>
+
+    <!-- MATCHES -->
+    <div class="tab-content" id="tab-pessoas">
+      <div class="match-aviso-menor">
+        ⚠️ <strong>Menores de idade</strong> devem comparecer às sessões de troca <strong>acompanhados de um responsável</strong>.
+      </div>
+      <button class="btn-refresh" onclick="renderMatches().catch(e=>console.error(e))">🔄 Atualizar matches</button>
+      <div id="matches-container"></div>
+    </div>
+
+  </div><!-- /content-area -->
+</div><!-- /app-screen -->
+
+<!-- Popup FORA do app-screen para não vazar com display:none -->
+<div class="popup-overlay" id="popup-trocas" style="display:none">
+  <div class="popup-box">
+    <div class="popup-title">⚙️ Configure suas trocas</div>
+    <div class="popup-desc">Antes de começar, defina como você quer trocar figurinhas. Você pode alterar essas preferências depois na aba Trocas.</div>
+
+    <div class="troca-section" style="margin-bottom:0.75rem">
+      <div class="troca-section-title">Preferência de Raridade</div>
+      <div class="troca-desc">Como você aceita trocar suas figurinhas brilhantes?</div>
+      <div class="toggle-pair">
+        <button class="tbtn" id="pop-rar-qualquer" onclick="popSetRar('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.65rem;font-weight:600">Brilhante troca com comum</span></button>
+        <button class="tbtn" id="pop-rar-igual"    onclick="popSetRar('igual')">⚖️ Mesmo nível<br><span style="font-size:0.65rem;font-weight:600">Brilhante só com brilhante</span></button>
+      </div>
+    </div>
+
+    <div class="troca-section" style="margin-bottom:0.75rem">
+      <div class="troca-section-title">Ofereço para troca</div>
+      <div class="troca-desc">O que você disponibiliza?</div>
+      <div class="toggle-pair">
+        <button class="tbtn" id="pop-of-all"    onclick="popSetOf('all')">✅ Todas minhas repetidas</button>
+        <button class="tbtn" id="pop-of-custom" onclick="popSetOf('custom')">🎯 Apenas algumas</button>
+      </div>
+    </div>
+
+    <div class="troca-section" style="margin-bottom:0">
+      <div class="troca-section-title">Preciso destas figurinhas</div>
+      <div class="troca-desc">O que você aceita receber?</div>
+      <div class="toggle-pair">
+        <button class="tbtn" id="pop-pr-all"    onclick="popSetPr('all')">✅ Todas que não tenho</button>
+        <button class="tbtn" id="pop-pr-custom" onclick="popSetPr('custom')">🎯 Figurinhas específicas</button>
+      </div>
+    </div>
+
+    <button class="popup-ok" id="popup-ok-btn" onclick="fecharPopupTrocas()">Pronto! Começar →</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+function norm(s){return(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function normCode(s){return norm(s).replace(/\s+/g,'');} // remove espaços para comparar códigos
+
+// ═══════════════════════════════════════════════════════════
+// DADOS — 980 figurinhas
+// ═══════════════════════════════════════════════════════════
+const INTRO={id:'FWC',nome:'Introdução & FIFA Museum',flag:'🏆',grupo:'INTRO',figurinhas:[
+  {code:'00',   name:'Logo Panini',        foil:true},
+  {code:'FWC1', name:'Emblema Oficial',    foil:true},
+  {code:'FWC2', name:'Emblema Oficial 2',  foil:true},
+  {code:'FWC3', name:'Mascotes Oficiais',  foil:true},
+  {code:'FWC4', name:'Slogan Oficial',     foil:true},
+  {code:'FWC5', name:'Bola Oficial',       foil:true},
+  {code:'FWC6', name:'Canadá — Sede',      foil:true},
+  {code:'FWC7', name:'México — Sede',      foil:true},
+  {code:'FWC8', name:'EUA — Sede',         foil:true},
+  {code:'FWC9', name:'Itália 1934',        foil:true},
+  {code:'FWC10',name:'Uruguai 1950',       foil:true},
+  {code:'FWC11',name:'Alemanha Oc. 1954',  foil:true},
+  {code:'FWC12',name:'Brasil 1962',        foil:true},
+  {code:'FWC13',name:'Alemanha Oc. 1974',  foil:true},
+  {code:'FWC14',name:'Argentina 1986',     foil:true},
+  {code:'FWC15',name:'Brasil 1994',        foil:true},
+  {code:'FWC16',name:'Brasil 2002',        foil:true},
+  {code:'FWC17',name:'Itália 2006',        foil:true},
+  {code:'FWC18',name:'Alemanha 2014',      foil:true},
+  {code:'FWC19',name:'Argentina 2022',     foil:true},
+]};
+
+function mkSel(id,nome,flag,grupo,jogs){
+  const f=[{code:id+'1',name:'Logo '+nome,foil:true}];
+  jogs.slice(0,11).forEach((j,i)=>f.push({code:id+(i+2),name:j,foil:false}));
+  f.push({code:id+'13',name:'Foto do Time',foil:false});
+  jogs.slice(11).forEach((j,i)=>f.push({code:id+(i+14),name:j,foil:false}));
+  return{id,nome,flag,grupo,figurinhas:f};
+}
+
+const SELECOES=[
+  mkSel('MEX','México','🇲🇽','A',['Luis Malagón','Johan Vásquez','Jorge Sánchez','César Montes','Jesús Gallardo','Israel Reyes','Diego Lainez','Carlos Rodríguez','Edson Álvarez','Orbelín Pineda','Marcel Ruiz','Érick Sánchez','Hirving Lozano','Santiago Giménez','Raúl Jiménez','Alexis Vega','Roberto Alvarado','César Huerta']),
+  mkSel('RSA','África do Sul','🇿🇦','A',['Ronwen Williams','Sipho Chaine','Aubrey Modiba','Samukele Kabini','Mbekezeli Mbokazi','Khulumani Ndamane','Siyabonga Ngezana','Khuliso Mudau','Nkosinathi Sibisi','Teboho Mokoena','Thalente Mbatha','Bathasi Aubaas','Yaya Sithole','Sipho Mbule','Lyle Foster','Iqraam Rayners','Mohau Nkota','Oswin Appollis']),
+  mkSel('KOR','Coreia do Sul','🇰🇷','A',['Hyeon-woo Jo','Seung-Gyu Kim','Min-jae Kim','Yu-min Cho','Young-woo Seol','Han-beom Lee','Tae-seok Lee','Myung-jae Lee','Jae-sung Lee','In-beom Hwang','Kang-in Lee','Seung-ho Paik','Jens Castrop','Dong-gyeong Lee','Gue-sung Cho','Heung-min Son','Hee-chan Hwang','Hyeon-Gyu Oh']),
+  mkSel('CZE','Rep. Tcheca','🇨🇿','A',['Matěj Kovář','Jindřich Staněk','Ladislav Krejčí','Vladimír Coufal','Jaroslav Zelený','Tomáš Holeš','David Zima','Michal Sadílek','Lukáš Provod','Lukáš Červ','Tomáš Souček','Pavel Šulc','Matěj Vydra','Vasil Kušej','Tomáš Chorý','Václav Černý','Adam Hložek','Patrik Schick']),
+  mkSel('CAN','Canadá','🇨🇦','B',['Dayne St. Clair','Alphonso Davies','Alistair Johnston','Samuel Adekugbe','Richie Laryea','Derek Cornelius','Moïse Bombito','Kamal Miller','Stephen Eustáquio','Ismaël Koné','Jonathan Osorio','Jacob Shaffelburg','Mathieu Choinière','Niko Sigur','Tajon Buchanan','Liam Millar','Cyle Larin','Jonathan David']),
+  mkSel('BIH','Bósnia e Herz.','🇧🇦','B',['Nikola Vasilj','Amar Dedić','Sead Kolašinac','Tarik Muharemović','Nihad Mujakić','Nikola Katić','Amir Hadžiahmetović','Benjamin Tahirović','Armin Gigović','Ivan Šunjić','Ivan Bašić','Dženis Burnić','Esmir Bajraktarević','Amar Memić','Ermedin Demirović','Edin Džeko','Samed Baždar','Haris Tabaković']),
+  mkSel('QAT','Catar','🇶🇦','B',['Meshaal Barsham','Sultan Albrake','Lucas Mendes','Homam Ahmed','Boualem Khoukhi','Pedro Miguel','Tarek Salman','Mohamed Al-Mannai','Karim Boudiaf','Assim Madibo','Ahmed Fatehi','Mohammed Waad','Abdulaziz Hatem','Hassan Al-Haydos','Edmilson Junior','Akram Hassan Afif','Ahmed Al Ganehi','Almoez Ali']),
+  mkSel('SUI','Suíça','🇨🇭','B',['Gregor Kobel','Yvon Mvogo','Manuel Akanji','Ricardo Rodriguez','Nico Elvedi','Aurèle Amenda','Silvan Widmer','Granit Xhaka','Denis Zakaria','Remo Freuler','Fabian Rieder','Ardon Jashari','Johan Manzambi','Michel Aebischer','Breel Embolo','Ruben Vargas','Dan Ndoye','Zeki Amdouni']),
+  mkSel('BRA','Brasil','🇧🇷','C',['Alisson','Bento','Marquinhos','Éder Militão','Gabriel Magalhães','Danilo','Wesley','Lucas Paquetá','Casemiro','Bruno Guimarães','Luiz Henrique','Vinícius Júnior','Rodrygo','João Pedro','Matheus Cunha','Gabriel Martinelli','Raphinha','Estêvão']),
+  mkSel('MAR','Marrocos','🇲🇦','C',['Yassine Bounou','Munir El Kajoui','Achraf Hakimi','Noussair Mazraoui','Nayef Aguerd','Romain Saïss','Jawad El Yamiq','Adam Masina','Sofyan Amrabat','Azzedine Ounahi','Eliesse Ben Seghir','Bilal El Khannouss','Ismael Saibari','Youssef En-Nesyri','Abde Ezzalzouli','Soufiane Rahimi','Brahim Díaz','Ayoub El Kaabi']),
+  mkSel('HAI','Haiti','🇭🇹','C',['Johny Placide','Carlens Arcus','Martin Expérience','Jean-Kevin Duverne','Ricardo Adé','Duke Lacroix','Garven Metusala','Hannes Delcroix','Leverton Pierre','Danley Jean Jacques','Jean-Ricner Bellegarde','Christopher Attys','Derrick Etienne Jr.','Josué Casimir','Ruben Providence','Duckens Nazon','Louicius Deedson','Frantzdy Pierrot']),
+  mkSel('SCO','Escócia','🏴󠁧󠁢󠁳󠁣󠁴󠁿','C',['Angus Gunn','Jack Hendry','Kieran Tierney','Aaron Hickey','Andrew Robertson','Scott McKenna','John Souttar','Anthony Ralston','Grant Hanley','Scott McTominay','Billy Gilmour','Lewis Ferguson','Ryan Christie','Kenny McLean','John McGinn','Lyndon Dykes','Che Adams','Ben Doak']),
+  mkSel('USA','Estados Unidos','🇺🇸','D',['Matt Freese','Chris Richards','Tim Ream','Mark McKenzie','Alex Freeman','Antonee Robinson','Tyler Adams','Tanner Tessmann','Weston McKennie','Christian Roldan','Timothy Weah','Diego Luna','Malik Tillman','Christian Pulisic','Brenden Aaronson','Ricardo Pepi','Haji Wright','Folarin Balogun']),
+  mkSel('PAR','Paraguai','🇵🇾','D',['Roberto Fernández','Orlando Gill','Gustavo Gómez','Fabián Balbuena','Juan José Cáceres','Omar Alderete','Junior Alonso','Mathías Villasanti','Diego Gómez','Damián Bobadilla','Andrés Cubas','Matías Galarza','Julio Enciso','Braian Samudio','Miguel Almirón','Ramón Sosa','Marcelo Perez','Kaku Romero']),
+  mkSel('AUS','Austrália','🇦🇺','D',['Mathew Ryan','Joe Gauci','Harry Souttar','Alessandro Circati','Jordan Bos','Aziz Behich','Cameron Burgess','Lewis Miller','Milos Degenek','Jackson Irvine','Riley McGree',"Aiden O'Neill",'Connor Metcalfe','Patrick Yazbek','Craig Goodwin','Kusini Yengi','Nestory Irankunda','Mohamed Touré']),
+  mkSel('TUR','Turquia','🇹🇷','D',['Uğurcan Çakır','Mert Müldür','Zeki Çelik','Abdülkerim Bardakcı','Çağlar Söyüncü','Merih Demiral','Ferdi Kadıoğlu','Kaan Ayhan','İsmail Yüksek','Hakan Çalhanoğlu','Orkun Kökçü','Arda Güler','İrfan Can Kahveci','Yunus Akgün','Can Uzun','Barış Alper Yılmaz','Kerem Aktürkoğlu','Kenan Yıldız']),
+  mkSel('GER','Alemanha','🇩🇪','E',['Marc-André ter Stegen','Jonathan Tah','David Raum','Nico Schlotterbeck','Antonio Rüdiger','Waldemar Anton','Ridle Baku','Maximilian Mittelstädt','Joshua Kimmich','Florian Wirtz','Felix Nmecha','Leon Goretzka','Jamal Musiala','Serge Gnabry','Kai Havertz','Leroy Sané','Karim Adeyemi','Nick Woltemade']),
+  mkSel('CUW','Curaçao','🇨🇼','E',['Eloy Room','Armando Obispo','Sherel Floranus','Jurien Gaari','Joshua Brenet','Roshon Van Eijma','Shurandy Sambo','Livano Comenencia','Godfried Roemeratoe','Juninho Bacuna','Leandro Bacuna','Tahith Chong','Kenji Gorré','Jearl Margaritha','Jurgen Locadia','Jeremy Antonisse','Gervane Kastaneer','Sontje Hansen']),
+  mkSel('CIV','Costa do Marfim','🇨🇮','E',['Yahia Fofana','Ghislain Konan','Wilfried Singo','Odilon Kossounou','Evan Ndicka','Willy Boly','Emmanuel Agbadou','Ousmane Diomande','Franck Kessié','Seko Fofana','Ibrahim Sangaré','Jean-Philippe Gbamin','Amad Diallo','Sébastien Haller','Simon Adingra','Yan Diomande','Evann Guessand','Oumar Diakité']),
+  mkSel('ECU','Equador','🇪🇨','E',['Hernán Galíndez','Gonzalo Valle','Piero Hincapié','Pervis Estupiñán','Willian Pacho','Ángelo Preciado','Joel Ordóñez','Moisés Caicedo','Alan Franco','Kendry Páez','Pedro Vite','John Yeboah','Leonardo Campana','Gonzalo Plata','Nilson Angulo','Alan Minda','Kevin Rodríguez','Enner Valencia']),
+  mkSel('NED','Holanda','🇳🇱','F',['Bart Verbruggen','Virgil van Dijk','Micky van de Ven','Jurriën Timber','Denzel Dumfries','Nathan Aké','Jeremie Frimpong','Jan Paul van Hecke','Tijjani Reijnders','Ryan Gravenberch','Teun Koopmeiners','Frenkie de Jong','Xavi Simons','Justin Kluivert','Memphis Depay','Donyell Malen','Wout Weghorst','Cody Gakpo']),
+  mkSel('JPN','Japão','🇯🇵','F',['Zion Suzuki','Henry Heroki Mochizuki','Ayumu Seko','Junnosuke Suzuki','Shogo Taniguchi','Tsuyoshi Watanabe','Kaishu Sano','Yuki Soma','Ao Tanaka','Daichi Kamada','Takefusa Kubo','Ritsu Doan','Keito Nakamura','Takumi Minamino','Shuto Machino','Junya Ito','Koki Ogawa','Ayase Ueda']),
+  mkSel('SWE','Suécia','🇸🇪','F',['Victor Johansson','Isak Hien','Gabriel Gudmundsson','Emil Holm','Victor Nilsson Lindelöf','Gustaf Lagerbielke','Lucas Bergvall','Hugo Larsson','Jesper Karlström','Yasin Ayari','Mattias Svanberg','Daniel Svensson','Ken Sema','Roony Bardghji','Dejan Kulusevski','Anthony Elanga','Alexander Isak','Viktor Gyökeres']),
+  mkSel('TUN','Tunísia','🇹🇳','F',['Bechir Ben Said','Aymen Dahmen','Van Valery','Montassar Talbi','Yassine Meriah','Ali Abdi','Dylan Bronn','Ellyes Skhiri','Aissa Laidouni','Ferjani Sassi','Mohamed Ali Ben Romdhane','Hannibal Mejbri','Elias Achouri','Elias Saad','Hazem Mastouri','Ismael Gharbi','Sayfallah Ltaief','Naim Sliti']),
+  mkSel('BEL','Bélgica','🇧🇪','G',['Thibaut Courtois','Arthur Theate','Timothy Castagne','Zeno Debast','Brandon Mechele','Maxim De Cuyper','Thomas Meunier','Youri Tielemans','Amadou Onana','Nicolas Raskin','Alexis Saelemaekers','Hans Vanaken','Kevin De Bruyne','Jérémy Doku','Charles De Ketelaere','Leandro Trossard','Loïs Openda','Romelu Lukaku']),
+  mkSel('EGY','Egito','🇪🇬','G',['Mohamed El Shenawy','Mohamed Hany','Mohamed Hamdy','Yasser Ibrahim','Khaled Sobhi','Ramy Rabia','Hossam Abdelmaguid','Ahmed Fatouh','Marwan Attia','Zizo','Hamdy Fathy','Mohamed Lasheen','Emam Ashour','Osama Faisal','Mohamed Salah','Mostafa Mohamed','Trezeguet','Omar Marmoush']),
+  mkSel('IRN','Irã','🇮🇷','G',['Alireza Beiranvand','Morteza Pouraliganji','Ehsan Hajsafi','Milad Mohammadi','Shoja Khalilzadeh','Ramin Rezaeian','Hossein Kanaani','Sadegh Moharrami','Saleh Hardani','Saeed Ezatolahi','Saman Ghoddos','Omid Noorafkan','Roozbeh Cheshmi','Mohammad Mohebi','Sardar Azmoun','Mehdi Taremi','Alireza Jahanbakhsh','Ali Gholizadeh']),
+  mkSel('NZL','Nova Zelândia','🇳🇿','G',['Max Crocombe-Payne','Alex Paulsen','Michael Boxall','Liberato Cacace','Tim Payne','Tyler Bindon','Francis de Vries','Finn Surman','Joe Bell','Sarpreet Singh','Ryan Thomas','Matthew Garbett','Marko Stamenić','Ben Old','Chris Wood','Elijah Just','Callum McCowatt','Kosta Barbarouses']),
+  mkSel('ESP','Espanha','🇪🇸','H',['Unai Simón','Robin Le Normand','Aymeric Laporte','Dean Huijsen','Pedro Porro','Dani Carvajal','Marc Cucurella','Martín Zubimendi','Rodri','Pedri','Fabián Ruiz','Mikel Merino','Lamine Yamal','Nico Williams','Álvaro Morata','Dani Olmo','Ferran Torres','Mikel Oyarzabal']),
+  mkSel('SEN','Senegal','🇸🇳','H',['Édouard Mendy','Seny Dieng','Abdou Diallo','Youssouf Sabaly','Fodé Ballo-Touré','Kalidou Koulibaly','Ismaïla Sarr','Idrissa Gueye','Cheikhou Kouyaté','Nampalys Mendy','Pape Gueye','Pathé Ciss','Habib Diallo','Boulaye Dia','Sadio Mané','Nicolas Jackson','Lamine Camara','Cherif Ndiaye']),
+  mkSel('TTO','Trinidad e Tobago','🇹🇹','H',['Marvin Phillip','Nicklas Frater','Alvin Jones','Sheldon Bateau','Ross Russell Jr.','Aubrey David','Triston Hodge','Noah Powder','Andre Rampersad','Nathaniel James','Isaiah Hudson','Judah Garcia','Duane Muckette','Ryan Telfer','Kevin Molino','Joevin Jones','Marcus Joseph','Levi Garcia']),
+  mkSel('CMR','Camarões','🇨🇲','H',['André Onana','Epassy Devis','Collins Fai','Jean-Charles Castelletto','Enzo Ebosse','Nicolas Nkoulou','Nouhou Tolo','Harold Moukoudi','Martin Hongla','Pierre Kunde','Samuel Gouet','Olivier Ntcham','Jean-Pierre Nsame','Nicolas Moumi Ngamaleu','Vincent Aboubakar','Stéphane Bahoken','Karl Toko Ekambi','Ignatius Ganago']),
+  mkSel('ARG','Argentina','🇦🇷','I',['Emiliano Martínez','Gerónimo Rulli','Nahuel Molina','Cristian Romero','Lisandro Martínez','Nicolás Otamendi','Nicolás Tagliafico','Marcos Acuña','Alexis Mac Allister','Rodrigo De Paul','Enzo Fernández','Leandro Paredes','Nicolás González','Ángel Di María','Julián Álvarez','Paulo Dybala','Lionel Messi','Lautaro Martínez']),
+  mkSel('CHI','Chile','🇨🇱','I',['Claudio Bravo','Gabriel Arias','Guillermo Maripán','Paulo Díaz','Igor Lichnovsky','Gabriel Suazo','Mauricio Isla','Thomas Galdames','Charles Aránguiz','Erick Pulgar','Víctor Dávila','Diego Valdés','Ben Brereton Díaz','Eduardo Vargas','Alexis Sánchez','Darío Osorio','Marcos Bolados','Gabriel Castellón']),
+  mkSel('PER','Peru','🇵🇪','I',['Pedro Gallese','José Carvallo','Carlos Zambrano','Alexander Callens','Miguel Trauco','Luis Abram','Aldo Corzo','Renato Tapia','Jesús Castillo','André Carrillo','Christian Cueva','Sergio Peña','Bryan Reyna','Edison Flores','Gianluca Lapadula','Paolo Guerrero','Raúl Ruidíaz','Alexander Succar']),
+  mkSel('ALG','Argélia','🇩🇿','I',["Raïs M'Bolhi",'Alexandre Oukidja','Djamel Benlamri','Ramy Bensebaini','Aïssa Mandi','Youcef Atal','Hicham Boudaoui','Ismaël Bennacer','Adlène Guedioura','Nabil Bentaleb','Said Benrahma','Youcef Belaïli','Andy Delort','Riyad Mahrez','Islam Slimani','Baghdad Bounedjah','Houssem Aouar','Abdelkader Bedrane']),
+  mkSel('FRA','França','🇫🇷','J',['Mike Maignan','Alphonse Areola','Jules Koundé','William Saliba','Dayot Upamecano','Lucas Hernández','Théo Hernández','Benjamin Pavard','Aurelien Tchouameni','Eduardo Camavinga','Adrien Rabiot',"N'Golo Kanté",'Antoine Griezmann','Ousmane Dembélé','Kingsley Coman','Marcus Thuram','Kylian Mbappé','Randal Kolo Muani']),
+  mkSel('URU','Uruguai','🇺🇾','J',['Sergio Rochet','Fernando Muslera','José María Giménez','Diego Godín','Ronald Araújo','Matías Viña','Mathías Olivera','Rodrigo Bentancur','Federico Valverde','Lucas Torreira','Manuel Ugarte','Nicolás De La Cruz','Facundo Pellistri','Darwin Núñez','Luis Suárez','Edinson Cavani','Maxi Gómez','Agustín Álvarez']),
+  mkSel('NGA','Nigéria','🇳🇬','J',['Francis Uzoho','Maduka Okoye','Semi Ajayi','William Troost-Ekong','Ola Aina','Calvin Bassey','Zaidu Sanusi','Joe Aribo','Alex Iwobi','Wilfred Ndidi','Kelechi Iheanacho','Samuel Chukwueze','Emmanuel Dennis','Victor Osimhen','Ademola Lookman','Taiwo Awoniyi','Frank Onyeka','Fisayo Dele-Bashiru']),
+  mkSel('POL','Polônia','🇵🇱','J',['Wojciech Szczęsny','Łukasz Skorupski','Jan Bednarek','Bartosz Bereszyński','Maciej Rybus','Kamil Piątkowski','Arkadiusz Reca','Krystian Bielik','Piotr Zieliński','Jakub Moder','Przemysław Frankowski','Sebastian Szymański','Nicola Zalewski','Karol Świderski','Adam Buksa','Robert Lewandowski','Arkadiusz Milik','Kamil Grosicki']),
+  mkSel('POR','Portugal','🇵🇹','K',['Diogo Costa','Rui Patrício','Rúben Dias','Pepe','João Cancelo','Nuno Mendes','Raphaël Guerreiro','Danilo Pereira','Vitinha','Bruno Fernandes','João Palhinha','Bernardo Silva','João Félix','Rafael Leão','Gonçalo Ramos','André Silva','Cristiano Ronaldo','Diogo Jota']),
+  mkSel('GHA','Gana','🇬🇭','K',['Lawrence Ati-Zigi','Ibrahim Danlad','Alexander Djiku','Daniel Amartey','Abdul-Rahman Baba','Tariq Lamptey','Joseph Aidoo','Thomas Partey','Iddrisu Baba','Elisha Owusu','Kudus Mohammed','Jordan Ayew','André Ayew','Antoine Semenyo','Richmond Boakye','Inaki Williams','Osman Bukari','Daniel Afriyie Barnieh']),
+  mkSel('COL','Colômbia','🇨🇴','K',['David Ospina','Camilo Vargas','Yerry Mina','Dávinson Sánchez','Stefan Medina','William Tesillo','Johan Mojica','Wilmar Barrios','Mateus Uribe','Jefferson Lerma','Juan Cuadrado','James Rodríguez','Luis Díaz','Rafael Santos Borré','Falcao García','Jhon Córdoba','Duván Zapata','Óscar Estupiñán']),
+  mkSel('PAN','Panamá','🇵🇦','K',['Orlando Mosquera','Luis Mejía','Andrés Andrade','Eric Davis','Fidel Escobar','Harold Cummings','Adalberto Carrasquilla','Edgar Barcenas','Alberto Quintero','José Fajardo','Anibal Godoy','Rolando Blackburn','Valentín Pimentel','Gabriel Torres','Ismael Díaz','Cecilio Waterman','Roderick Miller','Alfredo Stephens']),
+  mkSel('ENG','Inglaterra','🏴󠁧󠁢󠁥󠁮󠁧󠁿','L',['Jordan Pickford','Nick Pope','Reece James','John Stones','Harry Maguire','Luke Shaw','Kieran Trippier','Trent Alexander-Arnold','Declan Rice','Kalvin Phillips','Jude Bellingham','Phil Foden','Bukayo Saka','Marcus Rashford','Harry Kane','Raheem Sterling','Jack Grealish','Ivan Toney']),
+  mkSel('SVN','Eslovênia','🇸🇮','L',['Jan Oblak','Matevž Vidovšek','Miha Blažič','Jaka Bijol','Nik Prelec','Žan Karničnik','David Brekalo','Timi Max Elšnik','Petar Stojanović','Adam Gnezda Čerin','Sandi Lovrić','Jon Gorenc Stanković','Benjamin Šeško','Andraž Šporar','Erik Janža','Tomi Horvat','Jan Mlakar','Žan Vipotnik']),
+  mkSel('SRB','Sérvia','🇷🇸','L',['Predrag Rajković','Vanja Milinković-Savić','Nikola Milenković','Strahinja Pavlović','Miloš Veljković','Srđan Babić','Filip Mladenović','Nemanja Gudelj','Saša Lukić','Filip Kostić','Sergej Milinković-Savić','Nikola Maksimović','Andrija Živković','Dušan Tadić','Aleksandar Mitrović','Luka Jović','Dušan Vlahović','Strahinja Eraković']),
+  mkSel('CRI','Costa Rica','🇨🇷','L',['Keylor Navas','Esteban Alvarado','Bryan Ruiz','Francisco Calvo','Juan Pablo Vargas','Keysher Fuller','Ronald Matarrita','Orlando Galo','Celso Borges','Yeltsin Tejeda','Álvaro Zamora','Jewison Bennette','Brandon Aguilera','Anthony Contreras','Joel Campbell','Johan Venegas','Rónald Matarrita','Manfred Ugalde']),
+];
+
+const TODOS_GRUPOS=[INTRO,...SELECOES];
+const TOTAL_FIGS=980;
+let currentUsername=null;
+let currentUserId=null;
+
+// ═══════════════════════════════════════════════════════════
+// SUPABASE CONFIG
+// ═══════════════════════════════════════════════════════════
+const SB_URL='https://joauiahdpovjjmdyolnd.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvYXVpYWhkcG92amptZHlvbG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5Mzk1NDIsImV4cCI6MjA5MzUxNTU0Mn0.6MzcW8XYpxPW0-mFWKSG4bIAhSsaCspsSO5LOHowh0s';
+
+async function sbFetch(path,opts={}){
+  const headers={
+    'apikey':SB_KEY,
+    'Authorization':'Bearer '+SB_KEY,
+    'Content-Type':'application/json',
+    ...(opts.headers||{})
+  };
+  const res=await fetch(SB_URL+path,{...opts,headers});
+  const text=await res.text();
+
+  if(res.status===204)return null;
+  if(!res.ok){const err=JSON.parse(text||'{}').catch?.(()=>({}))||{};throw new Error(err.message||'Erro '+res.status+': '+text.slice(0,100));}
+  return text?JSON.parse(text):null;
+}
+
+// Cache local — evita round-trips desnecessários
+let _colCache=null;
+let _tradesCache=null;
+let _allUsersCache=null;
+
+function getCollection(){return _colCache||{};}
+function getTrades(){return _tradesCache||{modoOfereco:'all',modoPreciso:'all',oferecoCustom:[],precisoCustom:[],raridade:'qualquer'};}
+
+async function ensureColecaoRow(){
+  const rows=await sbFetch(`/rest/v1/colecoes?usuario_id=eq.${currentUserId}&select=id`);
+  if(!rows||!rows.length){
+    await sbFetch('/rest/v1/colecoes',{
+      method:'POST',
+      headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({usuario_id:currentUserId,collection:{figurinhas:{},trades:{}}})
+    });
+  }
+}
+
+async function loadUserData(){
+  const rows=await sbFetch(`/rest/v1/colecoes?usuario_id=eq.${currentUserId}&select=collection`);
+  if(rows&&rows.length>0){
+    const data=rows[0].collection||{};
+    _colCache=data.figurinhas||{};
+    _tradesCache=data.trades||null;
+  } else {
+    // Cria linha nova e começa do zero
+    await ensureColecaoRow();
+    _colCache={};_tradesCache=null;
+  }
+}
+
+async function patchColecao(patch){
+  return sbFetch(
+    `/rest/v1/colecoes?usuario_id=eq.${currentUserId}`,
+    {method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify(patch)}
+  );
+}
+
+async function saveCollection(col){
+  _colCache=col;
+  const data={figurinhas:col,trades:_tradesCache||{}};
+  try{
+    await patchColecao({collection:data});
+  }catch(e){
+    // Se a linha não existia ainda, cria e tenta de novo
+    await ensureColecaoRow();
+    await patchColecao({collection:data});
+  }
+}
+
+async function saveTrades(t){
+  _tradesCache=t;
+  const data={figurinhas:_colCache||{},trades:t};
+  try{
+    await patchColecao({collection:data});
+  }catch(e){
+    await ensureColecaoRow();
+    await patchColecao({collection:data});
+  }
+}
+
+async function getAllUsers(){
+  if(_allUsersCache&&_allUsersCache._ts&&Date.now()-_allUsersCache._ts<30000)return _allUsersCache;
+  const rows=await sbFetch('/rest/v1/usuarios?select=id,username&limit=500');
+  const result={_ts:Date.now()};
+  for(const u of (rows||[])){
+    const cols=await sbFetch(`/rest/v1/colecoes?usuario_id=eq.${u.id}&select=collection`);
+    const data=(cols&&cols[0]?.collection)||{};
+    result[u.username]={
+      nome:u.username,
+      userId:u.id,
+      collection:data.figurinhas||{},
+      trades:data.trades||{}
+    };
+  }
+  _allUsersCache=result;
+  return result;
+}
+
+function getCurrentUser(){try{return JSON.parse(sessionStorage.getItem('cf_session')||'null')}catch{return null}}
+function saveSession(u){sessionStorage.setItem('cf_session',JSON.stringify(u));}
+function clearSession(){sessionStorage.removeItem('cf_session');}
+
+// ═══════════════════════════════════════════════════════════
+// TOGGLE BUTTONS — style inline para garantir visibilidade
+// ═══════════════════════════════════════════════════════════
+const CORES={
+  verde:{ bg:'#14532d', border:'#4ade80', text:'#4ade80', shadow:'0 0 0 1px #4ade80' },
+  ouro: { bg:'#3d2e00', border:'#f0c040', text:'#f0c040', shadow:'0 0 0 1px #f0c040' },
+  azul: { bg:'#1e3a5f', border:'#60a5fa', text:'#60a5fa', shadow:'0 0 0 1px #60a5fa' },
+};
+const INATIVO={ bg:'var(--bg2)', border:'var(--border2)', text:'var(--text3)', shadow:'none', fw:'700' };
+
+function setBtn(id, ativo, cor){
+  const el=document.getElementById(id);
+  if(!el)return;
+  // remover classes de estado
+  el.classList.remove('on-green','on-gold','on-blue');
+  if(!ativo){
+    el.style.background=INATIVO.bg;
+    el.style.borderColor=INATIVO.border;
+    el.style.color=INATIVO.text;
+    el.style.fontWeight=INATIVO.fw;
+    el.style.boxShadow=INATIVO.shadow;
+  } else {
+    const c=CORES[cor];
+    el.style.background=c.bg;
+    el.style.borderColor=c.border;
+    el.style.color=c.text;
+    el.style.fontWeight='900';
+    el.style.boxShadow=c.shadow;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTOSAVE TOAST
+// ═══════════════════════════════════════════════════════════
+let toastTimer=null;
+function showAutosave(){
+  const t=document.getElementById('autosave-toast');
+  t.classList.add('show');clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
+}
+function autoSave(){
+  saveTrades({modoOfereco,modoPreciso,oferecoCustom:[...oferecoCustom],precisoCustom:[...precisoCustom],raridade})
+    .catch(e=>console.error('saveTrades:',e));
+  showAutosave();
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════════
+function showError(msg){const el=document.getElementById('error-msg');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',3500);}
+
+// ── Validação de username em tempo real ──────────────────────────────
+function validarUsername(input){
+  // Forçar minúsculo
+  const cursor=input.selectionStart;
+  const original=input.value;
+  // Remove tudo que não seja letra minúscula, número ou hífen
+  const limpo=original.toLowerCase().replace(/[^a-z0-9-]/g,'');
+  if(limpo!==original.toLowerCase()){
+    const msgEl=document.getElementById('username-hint');
+    if(msgEl){msgEl.style.color='#f87171';msgEl.textContent='Apenas letras, números e hífen ( - ) são permitidos.';}
+  } else {
+    const msgEl=document.getElementById('username-hint');
+    if(msgEl){msgEl.style.color='var(--text3)';msgEl.textContent='Use letras minúsculas, números e hífen.';}
+  }
+  input.value=limpo;
+  // Restaurar posição do cursor
+  input.setSelectionRange(cursor,cursor);
+}
+
+// ── Popup de configuração de trocas ─────────────────────────────────
+let popRar='qualquer',popOf='all',popPr='all';
+
+function popSetRar(v){
+  popRar=v;
+  applyPopBtn('pop-rar-qualquer',v==='qualquer','azul');
+  applyPopBtn('pop-rar-igual',v==='igual','azul');
+}
+function popSetOf(v){
+  popOf=v;
+  applyPopBtn('pop-of-all',v==='all','verde');
+  applyPopBtn('pop-of-custom',v==='custom','ouro');
+}
+function popSetPr(v){
+  popPr=v;
+  applyPopBtn('pop-pr-all',v==='all','verde');
+  applyPopBtn('pop-pr-custom',v==='custom','ouro');
+}
+function applyPopBtn(id,ativo,cor){
+  const el=document.getElementById(id);if(!el)return;
+  const cores={verde:{bg:'#14532d',border:'#4ade80',text:'#4ade80'},ouro:{bg:'#3d2e00',border:'#f0c040',text:'#f0c040'},azul:{bg:'#1e3a5f',border:'#60a5fa',text:'#60a5fa'}};
+  const inativo={bg:'var(--bg2)',border:'var(--border2)',text:'var(--text3)',fw:'700'};
+  if(!ativo){
+    el.style.background=inativo.bg;el.style.borderColor=inativo.border;
+    el.style.color=inativo.text;el.style.fontWeight=inativo.fw;el.style.boxShadow='none';
+  } else {
+    const c=cores[cor];
+    el.style.background=c.bg;el.style.borderColor=c.border;
+    el.style.color=c.text;el.style.fontWeight='900';el.style.boxShadow=`0 0 0 1px ${c.border}`;
+  }
+}
+function abrirPopupTrocas(){
+  // Só mostrar se o app estiver visível (não na tela de login)
+  if(document.getElementById('app-screen').style.display==='none')return;
+  popRar='qualquer';popOf='all';popPr='all';
+  popSetRar('qualquer');popSetOf('all');popSetPr('all');
+  document.getElementById('popup-trocas').style.display='flex';
+}
+async function fecharPopupTrocas(){
+  // Salvar preferências escolhidas no popup
+  const trades={modoOfereco:popOf,modoPreciso:popPr,oferecoCustom:[],precisoCustom:[],raridade:popRar};
+  _tradesCache=trades;
+  await saveTrades(trades).catch(e=>console.error('saveTrades popup:',e));
+  document.getElementById('popup-trocas').style.display='none';
+  showTab('inicio');
+}
+function showLoading(btn,txt){btn.disabled=true;btn.textContent=txt;}
+function hideLoading(btn,txt){btn.disabled=false;btn.textContent=txt;}
+
+function showLoginTab(tab){
+  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
+  document.getElementById('form-cadastro').style.display=tab==='cadastro'?'block':'none';
+  document.getElementById('tab-login-btn').classList.toggle('active',tab==='login');
+  document.getElementById('tab-cadastro-btn').classList.toggle('active',tab==='cadastro');
+  document.getElementById('error-msg').style.display='none';
+}
+
+async function doLogin(){
+  const user=document.getElementById('login-user').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pass').value;
+  if(!user||!pass)return showError('Preencha usuário e senha.');
+  const btn=document.querySelector('#form-login .btn-primary');
+  showLoading(btn,'Entrando…');
+  try{
+    const rows=await sbFetch(`/rest/v1/usuarios?username=eq.${encodeURIComponent(user)}&select=id,username,senha_hash`);
+    if(!rows||!rows.length){showError('Usuário não encontrado.');return;}
+    const u=rows[0];
+    if(u.senha_hash!==btoa(pass)){showError('Senha incorreta.');return;}
+    saveSession({username:u.username,id:u.id});
+    await enterApp(u.username,u.id);
+  }catch(e){showError('Erro ao conectar: '+e.message);}
+  finally{hideLoading(btn,'⚽ Entrar');}
+}
+
+async function doCadastro(){
+  const user=document.getElementById('cad-user').value.trim().toLowerCase();
+  const pass=document.getElementById('cad-pass').value;
+  const pass2=document.getElementById('cad-pass2').value;
+  if(!user||!pass)return showError('Preencha todos os campos.');
+  if(!/^[a-z0-9-]+$/.test(user))return showError('Usuário: apenas letras minúsculas, números e hífen.');
+  if(user.length<3)return showError('Usuário deve ter ao menos 3 caracteres.');
+  if(user.length>20)return showError('Usuário deve ter no máximo 20 caracteres.');
+  if(pass.length<6)return showError('Senha deve ter ao menos 6 caracteres.');
+  if(pass!==pass2)return showError('As senhas não coincidem.');
+  const btn=document.querySelector('#form-cadastro .btn-primary');
+  showLoading(btn,'Criando conta…');
+  try{
+    // Checar se username já existe
+    const existe=await sbFetch(`/rest/v1/usuarios?username=eq.${encodeURIComponent(user)}&select=id`);
+    if(existe&&existe.length)return showError('Esse nome de usuário já está em uso.');
+    const novo=await sbFetch('/rest/v1/usuarios',{method:'POST',headers:{'Prefer':'return=representation'},body:JSON.stringify({username:user,senha_hash:btoa(pass)})});
+    if(!novo||!novo.length)throw new Error('Falha ao criar usuário — verifique o banco');
+    saveSession({username:novo[0].username,id:novo[0].id,firstLogin:true});
+    await enterApp(novo[0].username,novo[0].id);
+  }catch(e){showError('Erro ao criar conta: '+e.message);}
+  finally{hideLoading(btn,'🎉 Criar conta');}
+}
+
+async function enterApp(username,userId){
+  currentUsername=username;
+  currentUserId=userId;
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app-screen').style.display='flex';
+  const nav=document.querySelector('.nav-tabs');
+  if(nav)nav.style.display='flex';
+  const ini=username.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('header-avatar').textContent=ini;
+  document.getElementById('header-username').textContent=username.split(' ')[0];
+  document.getElementById('hero-name').textContent=username.split(' ')[0]+'!';
+  // Zerar caches da sessão anterior
+  _colCache=null;_tradesCache=null;_allUsersCache=null;_confirmacoesCache=null;
+  // Resetar estado visual — fechar cards, limpar busca, resetar filtros
+  filtroAtivo='todas';
+  document.querySelectorAll('.selecao-card.open,.match-card.open').forEach(c=>c.classList.remove('open'));
+  const searchEl=document.getElementById('search-selecao');
+  if(searchEl)searchEl.value='';
+  // Limpar campos de login/cadastro
+  ['login-user','login-pass','cad-user','cad-pass','cad-pass2'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  await loadUserData();
+  resetConfirmacoesExpiradas().catch(()=>{});
+  updateStats();
+  renderColecao();
+  showTab('inicio');
+  // Popup de configuração no primeiro login
+  const sess=getCurrentUser();
+  if(sess&&sess.firstLogin){
+    // Limpar flag para não mostrar de novo
+    saveSession({username:sess.username,id:sess.id});
+    setTimeout(()=>abrirPopupTrocas(),400);
+  }
+}
+
+function doLogout(){
+  clearSession();
+  currentUsername=null;currentUserId=null;
+  _colCache=null;_tradesCache=null;_allUsersCache=null;_confirmacoesCache=null;
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app-screen').style.display='none';
+  document.getElementById('popup-trocas').style.display='none';
+  const nav=document.querySelector('.nav-tabs');
+  if(nav)nav.style.display='none';
+  document.getElementById('autosave-toast').style.opacity='0';
+  // Limpar todos os campos de login e cadastro
+  ['login-user','login-pass','cad-user','cad-pass','cad-pass2'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  // Fechar todos os cards abertos (seleções e matches)
+  document.querySelectorAll('.selecao-card.open,.match-card.open').forEach(c=>c.classList.remove('open'));
+  // Resetar filtros de coleção
+  filtroAtivo='todas';
+  const searchEl=document.getElementById('search-selecao');
+  if(searchEl)searchEl.value='';
+  // Sempre voltar para aba login (não cadastro)
+  showLoginTab('login');
+}
+
+// ═══════════════════════════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════════════════════════
+function updateStats(){
+  const col=getCollection();let tenho=0,rep=0;
+  TODOS_GRUPOS.forEach(g=>g.figurinhas.forEach(f=>{const v=col[f.code]||0;if(v>=1)tenho++;if(v>=2)rep+=(v-1);}));
+  const pct=Math.round((tenho/TOTAL_FIGS)*100);
+  document.getElementById('stat-tenho').textContent=tenho;
+  document.getElementById('stat-tenho-pct').textContent=pct+'% completo · '+tenho+' de '+TOTAL_FIGS;
+  document.getElementById('stat-falta').textContent=TOTAL_FIGS-tenho;
+  document.getElementById('stat-repetidas').textContent=rep;
+  const heroBar=document.getElementById('prog-fill-hero');
+  if(heroBar)heroBar.style.width=pct+'%';
+  // barra da aba início (pode não existir mais)
+  const tabBar=document.getElementById('prog-fill');
+  if(tabBar)tabBar.style.width=pct+'%';
+}
+
+// ═══════════════════════════════════════════════════════════
+// COLEÇÃO
+// ═══════════════════════════════════════════════════════════
+function grupoMatch(g,b){
+  if(!b)return true;const q=norm(b),qc=normCode(b);
+  if(norm(g.nome).includes(q)||norm(g.id).includes(q)||norm('grupo '+g.grupo).includes(q))return true;
+  for(const f of g.figurinhas)if(normCode(f.code).includes(qc)||norm(f.name).includes(q))return true;
+  return false;
+}
+function grupoMatchDireto(g,b){
+  if(!b)return true;const q=norm(b);
+  return norm(g.nome).includes(q)||norm(g.id).includes(q)||norm('grupo '+g.grupo).includes(q);
+}
+function figurinhasMatch(g,b){
+  if(!b)return null;
+  if(grupoMatchDireto(g,b))return null;
+  const q=norm(b),qc=normCode(b);
+  return g.figurinhas.filter(f=>normCode(f.code).includes(qc)||norm(f.name).includes(q));
+}
+let filtroAtivo='todas';
+function setFiltro(f,btn){filtroAtivo=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderColecao();}
+function filtrarSelecoes(){renderColecao();}
+function figCls(v,foil){return'fig-item'+(foil?' brilhante':'')+(v>=2?' repetida':v>=1?' tenho':'');}
+function renderColecao(){
+  const col=getCollection(),busca=document.getElementById('search-selecao').value.trim();
+  const ct=document.getElementById('selecoes-container');
+  const abertos=new Set([...document.querySelectorAll('.selecao-card.open')].map(c=>c.dataset.id));
+  ct.innerHTML='';
+  TODOS_GRUPOS.forEach(g=>{
+    if(!grupoMatch(g,busca))return;
+    const figsBusca=figurinhasMatch(g,busca); // null=todas, array=filtradas por busca
+    // Filtro de estado: incompletas = não tenho, repetidas = tenho 2+
+    let figsFiltroEstado=null;
+    if(filtroAtivo==='incompletas'){
+      figsFiltroEstado=(figsBusca||g.figurinhas).filter(f=>(col[f.code]||0)===0);
+    } else if(filtroAtivo==='tenho'){
+      figsFiltroEstado=(figsBusca||g.figurinhas).filter(f=>(col[f.code]||0)>=1);
+    } else if(filtroAtivo==='repetidas'){
+      figsFiltroEstado=(figsBusca||g.figurinhas).filter(f=>(col[f.code]||0)>=2);
+    }
+    const figsVis=figsFiltroEstado||figsBusca; // null=todas
+    // Ocultar grupo se não há figurinhas a mostrar
+    if(figsFiltroEstado!==null&&figsFiltroEstado.length===0)return;
+    // Stats sempre do grupo inteiro
+    let tenho=0,rep=0;
+    g.figurinhas.forEach(f=>{const v=col[f.code]||0;if(v>=1)tenho++;if(v>=2)rep++;});
+    const total=g.figurinhas.length;
+    const pct=Math.round((tenho/total)*100);
+    const buscaEspec=(busca&&figsBusca!==null)||figsFiltroEstado!==null;
+    const isOpen=buscaEspec||abertos.has(g.id);
+    const card=document.createElement('div');
+    card.className='selecao-card'+(isOpen?' open':'');card.dataset.id=g.id;
+    const gl=g.grupo==='INTRO'?'Especiais':('Grupo '+g.grupo);
+    const contLabel=figsVis?`${figsVis.length} result.`:`${tenho}/${total}`;
+    card.innerHTML=`<div class="selecao-header-row" onclick="toggleSelecao('${g.id}')">
+      <div class="selecao-left"><span class="selecao-flag">${g.flag}</span>
+        <div><div class="selecao-name">${g.nome}</div><div class="selecao-group">${gl}</div></div>
+      </div>
+      <div class="selecao-right">
+        <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${pct}%"></div></div>
+        <span class="selecao-pct">${pct}%</span>
+        <span class="selecao-count">${contLabel}</span>
+        <span class="selecao-chevron">▼</span>
+      </div>
+    </div>
+    <div class="figurinhas-grid-wrap">
+      <div class="fig-hint">0=falta · 1=tenho · 2+=repetida · ✨=brilhante</div>
+      <div class="fig-grid" id="figs-${g.id}"></div>
+    </div>`;
+    ct.appendChild(card);
+    renderFigurinhas(g,col,figsVis);
+  });
+}
+function renderFigurinhas(g,col,figsFiltradas){
+  const grid=document.getElementById('figs-'+g.id);if(!grid)return;grid.innerHTML='';
+  const lista=figsFiltradas||g.figurinhas;
+  lista.forEach(f=>{
+    const v=col[f.code]||0;
+    const div=document.createElement('div');div.className=figCls(v,f.foil);
+    div.innerHTML=`${f.foil?'<span class="fig-brilhante-badge">✨ brilhante</span>':''}
+      <span class="fig-num">${f.code}</span>
+      <span class="fig-name">${f.name}</span>
+      <div class="fig-stepper">
+        <button class="step-btn minus" onclick="stepFig('${g.id}','${f.code}',-1)">−</button>
+        <span class="step-val" id="sv-${f.code}">${v}</span>
+        <button class="step-btn plus" onclick="stepFig('${g.id}','${f.code}',1)">+</button>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+async function stepFig(gId,code,delta){
+  const col=getCollection();
+  const cur=col[code]||0;const next=Math.max(0,cur+delta);
+  if(next===0)delete col[code];else col[code]=next;
+  saveCollection(col).catch(e=>console.error('saveCollection:',e));
+  const g=TODOS_GRUPOS.find(x=>x.id===gId);
+  const f=g?.figurinhas.find(x=>x.code===code);
+  const grid=document.getElementById('figs-'+gId);
+  if(grid&&f){
+    const item=[...grid.querySelectorAll('.fig-item')].find(el=>el.querySelector('.fig-num')?.textContent===code);
+    if(item){
+      item.className=figCls(next,f.foil);
+      const sv=document.getElementById('sv-'+code);if(sv)sv.textContent=next;
+    }
+  }
+  updateGrupoProgress(gId,col);updateStats();
+}
+function updateGrupoProgress(gId,col){
+  const g=TODOS_GRUPOS.find(x=>x.id===gId);if(!g)return;
+  let tenho=0;g.figurinhas.forEach(f=>{if((col[f.code]||0)>=1)tenho++;});
+  const pct=Math.round((tenho/g.figurinhas.length)*100);
+  const card=document.querySelector(`.selecao-card[data-id="${gId}"]`);
+  if(card){
+    card.querySelector('.selecao-pct').textContent=pct+'%';
+    card.querySelector('.selecao-count').textContent=tenho+'/'+g.figurinhas.length;
+    card.querySelector('.mini-bar-fill').style.width=pct+'%';
+  }
+}
+function toggleSelecao(id){document.querySelector(`.selecao-card[data-id="${id}"]`)?.classList.toggle('open');}
+
+// ═══════════════════════════════════════════════════════════
+// TROCAS
+// ═══════════════════════════════════════════════════════════
+let raridade='qualquer',modoOfereco='all',modoPreciso='all';
+let oferecoCustom=new Set(),precisoCustom=new Set(),filtroPrecisoSel=null;
+
+function setRaridade(r){
+  raridade=r;
+  setBtn('rar-qualquer', r==='qualquer', 'azul');
+  setBtn('rar-igual',    r==='igual',    'azul');
+  autoSave();
+}
+function setModoOfereco(modo){
+  modoOfereco=modo;
+  setBtn('of-modo-all',    modo==='all',    'verde');
+  setBtn('of-modo-custom', modo==='custom', 'ouro');
+  const area=document.getElementById('ofereco-custom-area');
+  if(modo==='custom'){area.style.display='block';renderOferecoGrid();}
+  else area.style.display='none';
+  autoSave();
+}
+function setModoPreciso(modo){
+  modoPreciso=modo;
+  setBtn('pr-modo-all',    modo==='all',    'verde');
+  setBtn('pr-modo-custom', modo==='custom', 'ouro');
+  const area=document.getElementById('preciso-custom-area');
+  if(modo==='custom'){area.style.display='block';renderPrecisoGrid();}
+  else area.style.display='none';
+  autoSave();
+}
+function renderTrocas(){
+  const t=getTrades();
+  raridade=t.raridade||'qualquer';
+  modoOfereco=t.modoOfereco||'all';
+  modoPreciso=t.modoPreciso||'all';
+  oferecoCustom=new Set(t.oferecoCustom||[]);
+  precisoCustom=new Set(t.precisoCustom||[]);
+  // restaurar visual
+  setBtn('rar-qualquer', raridade==='qualquer', 'azul');
+  setBtn('rar-igual',    raridade==='igual',    'azul');
+  setBtn('of-modo-all',    modoOfereco==='all',    'verde');
+  setBtn('of-modo-custom', modoOfereco==='custom', 'ouro');
+  setBtn('pr-modo-all',    modoPreciso==='all',    'verde');
+  setBtn('pr-modo-custom', modoPreciso==='custom', 'ouro');
+  const ofArea=document.getElementById('ofereco-custom-area');
+  const prArea=document.getElementById('preciso-custom-area');
+  if(modoOfereco==='custom'){ofArea.style.display='block';renderOferecoGrid();}else ofArea.style.display='none';
+  if(modoPreciso==='custom'){prArea.style.display='block';renderPrecisoGrid();}else prArea.style.display='none';
+}
+function renderOferecoGrid(){
+  const col=getCollection();
+  const area=document.getElementById('ofereco-custom-area');
+  const reps=[];
+  TODOS_GRUPOS.forEach(g=>g.figurinhas.forEach(f=>{if((col[f.code]||0)>=2)reps.push(f);}));
+  if(!reps.length){area.innerHTML='<div class="sem-repetidas">Você não tem figurinhas repetidas ainda.</div>';return;}
+  const grid=document.createElement('div');grid.className='fig-troca-grid';
+  reps.forEach(f=>{
+    const sel=oferecoCustom.has(f.code);
+    const div=document.createElement('div');div.className='fig-troca-item'+(sel?' sel-of':'');
+    div.innerHTML=`<div class="fig-troca-check">${sel?'✓':'○'}</div><span class="fig-num">${f.code}</span><span class="fig-name" style="height:auto;font-size:0.5rem">${f.name}</span>`;
+    div.onclick=()=>{
+      if(oferecoCustom.has(f.code)){oferecoCustom.delete(f.code);div.classList.remove('sel-of');div.querySelector('.fig-troca-check').textContent='○';}
+      else{oferecoCustom.add(f.code);div.classList.add('sel-of');div.querySelector('.fig-troca-check').textContent='✓';}
+      autoSave();
+    };
+    grid.appendChild(div);
+  });
+  area.innerHTML='';area.appendChild(grid);
+}
+function renderPrecisoGrid(){
+  const col=getCollection();
+  const flagsEl=document.getElementById('preciso-flags');flagsEl.innerHTML='';
+  const btnAll=document.createElement('button');
+  btnAll.className='preciso-flag-btn'+(filtroPrecisoSel===null?' active':'');
+  btnAll.innerHTML='<span>Todas</span>';
+  btnAll.onclick=()=>{filtroPrecisoSel=null;renderPrecisoGrid();};flagsEl.appendChild(btnAll);
+  TODOS_GRUPOS.forEach(g=>{
+    const btn=document.createElement('button');
+    btn.className='preciso-flag-btn'+(filtroPrecisoSel===g.id?' active':'');
+    btn.innerHTML=`${g.flag}<span>${g.id}</span>`;
+    btn.onclick=()=>{filtroPrecisoSel=g.id;renderPrecisoGrid();};flagsEl.appendChild(btn);
+  });
+  const cont=document.getElementById('preciso-grid-container');
+  const grid=document.createElement('div');grid.className='fig-troca-grid';let count=0;
+  TODOS_GRUPOS.forEach(g=>{
+    if(filtroPrecisoSel&&g.id!==filtroPrecisoSel)return;
+    g.figurinhas.forEach(f=>{
+      if((col[f.code]||0)>=1)return;count++;
+      const sel=precisoCustom.has(f.code);
+      const div=document.createElement('div');div.className='fig-preciso-item'+(sel?' sel-pr':'');
+      div.innerHTML=`<div class="fig-troca-check" style="color:${sel?'#f87171':'var(--text3)'}">${sel?'✓':'○'}</div><span class="fig-num">${f.code}</span><span class="fig-name" style="height:auto;font-size:0.5rem">${f.name}</span>`;
+      div.onclick=()=>{
+        if(precisoCustom.has(f.code)){precisoCustom.delete(f.code);div.classList.remove('sel-pr');div.querySelector('.fig-troca-check').style.color='var(--text3)';div.querySelector('.fig-troca-check').textContent='○';}
+        else{precisoCustom.add(f.code);div.classList.add('sel-pr');div.querySelector('.fig-troca-check').style.color='#f87171';div.querySelector('.fig-troca-check').textContent='✓';}
+        autoSave();
+      };
+      grid.appendChild(div);
+    });
+  });
+  cont.innerHTML='';
+  if(!count)cont.innerHTML='<div class="sem-repetidas">Nenhuma figurinha faltando aqui! 🎉</div>';
+  else cont.appendChild(grid);
+}
+
+// ═══════════════════════════════════════════════════════════
+// MATCHES
+// ═══════════════════════════════════════════════════════════
+function getFigInfo(code){
+  for(const g of TODOS_GRUPOS){const f=g.figurinhas.find(x=>x.code===code);if(f)return{code,name:f.name,foil:f.foil,flag:g.flag};}
+  return{code,name:'?',foil:false,flag:''};
+}
+function getOferecoSet(u,users){
+  // Para o usuário atual, usa o cache local (mais atualizado)
+  const col=(u===currentUsername)?getCollection():(users[u]?.collection||{});
+  const t=(u===currentUsername)?getTrades():(users[u]?.trades||{});
+  if((t.modoOfereco||'all')==='all'){const s=new Set();TODOS_GRUPOS.forEach(g=>g.figurinhas.forEach(f=>{if((col[f.code]||0)>=2)s.add(f.code);}));return s;}
+  return new Set(t.oferecoCustom||[]);
+}
+function getPrecisoSet(u,users){
+  const col=(u===currentUsername)?getCollection():(users[u]?.collection||{});
+  const t=(u===currentUsername)?getTrades():(users[u]?.trades||{});
+  if((t.modoPreciso||'all')==='all'){const s=new Set();TODOS_GRUPOS.forEach(g=>g.figurinhas.forEach(f=>{if((col[f.code]||0)===0)s.add(f.code);}));return s;}
+  return new Set(t.precisoCustom||[]);
+}
+
+// ═══════════════════════════════════════════════════════════
+// ÍNDICE DE PRESTÍGIO — ordem de prioridade nas trocas
+// Brilhantes sempre primeiro dentro de cada seleção
+// Seleções ordenadas por relevância/empolgação para o fã brasileiro
+// ═══════════════════════════════════════════════════════════
+const PRESTIGIO={
+  // Tier 1 — Brasil e rivais históricos diretos
+  BRA:100, ARG:95, URU:88,
+  // Tier 2 — Gigantes europeus muito conhecidos no Brasil
+  FRA:85, GER:83, ESP:81, POR:79, ENG:77, ITA:75,
+  // Tier 3 — Potências modernas com grandes estrelas
+  NED:70, BEL:68, CHI:65, COL:63, PER:60,
+  // Tier 4 — Seleções africanas e asiáticas populares
+  NGA:55, MAR:53, SEN:51, EGY:49, GHA:47,
+  ECU:45, MEX:43, USA:41, CAN:39,
+  // Tier 5 — Demais seleções
+  JPN:35, KOR:33, ALG:31, IRN:29, TUN:27,
+  AUS:25, POL:23, SUI:21, TUR:19, CRO:17,
+  SRB:15, CZE:13, SVN:11, SCO:10,
+  QAT:9, RSA:8, CMR:7, CIV:6, CRI:5,
+  PAR:4, PAN:3, TTO:2, NZL:2, HAI:1,
+  CUW:1, BIH:1, SWE:1,
+  // Especiais — mesmo peso das brilhantes (todas são foil)
+  FWC:1000,
+};
+
+function getPrioridade(code){
+  // Extrai o id da seleção do código (ex: "BRA9" → "BRA", "FWC3" → "FWC")
+  const match=code.match(/^([A-Z]+)/);
+  const selId=match?match[1]:'';
+  const base=PRESTIGIO[selId]||0;
+  // Brilhantes ganham +1000 dentro de cada tier para sempre virem primeiro
+  const f=getFigInfo(code);
+  return base+(f.foil?1000:0);
+}
+
+function sortByPrioridade(codes){
+  return [...codes].sort((a,b)=>getPrioridade(b)-getPrioridade(a));
+}
+
+// ═══════════════════════════════════════════════════════════
+// SESSÕES FIXAS SEMANAIS
+// ═══════════════════════════════════════════════════════════
+// dia: 0=dom,1=seg,...,5=sex,6=sab
+const SESSOES_FIXAS=[
+  {dia:2,label:'Terça',  inicio:'17:00',fim:'18:00'},
+  {dia:4,label:'Quinta', inicio:'17:00',fim:'18:00'},
+  {dia:5,label:'Sexta',  inicio:'17:00',fim:'18:00'},
+  {dia:6,label:'Sábado', inicio:'10:00',fim:'11:00'},
+  {dia:6,label:'Sábado', inicio:'15:00',fim:'16:00'},
+  {dia:6,label:'Sábado', inicio:'16:00',fim:'17:00'},
+  {dia:6,label:'Sábado', inicio:'17:00',fim:'18:00'},
+  {dia:0,label:'Domingo',inicio:'10:00',fim:'11:00'},
+  {dia:0,label:'Domingo',inicio:'15:00',fim:'16:00'},
+  {dia:0,label:'Domingo',inicio:'16:00',fim:'17:00'},
+  {dia:0,label:'Domingo',inicio:'17:00',fim:'18:00'},
+];
+const LOCAIS=['Shopping Iguatemi','Praça XV'];
+
+// Gera uma key única para cada sessão: "dia-HHmm-HHmm"
+function sessaoKey(s){return `${s.dia}-${s.inicio.replace(':','')}-${s.fim.replace(':','')}`;}
+
+// Retorna a próxima ocorrência de cada sessão a partir de agora
+function proximaOcorrencia(s){
+  const agora=new Date();
+  const d=new Date(agora);
+  const diasAte=(s.dia-agora.getDay()+7)%7;
+  d.setDate(agora.getDate()+diasAte);
+  const [hf,mf]=s.fim.split(':').map(Number);
+  d.setHours(hf,mf,0,0);
+  // Se a sessão de hoje já passou, avança 7 dias
+  if(d<=agora)d.setDate(d.getDate()+7);
+  return d;
+}
+
+// Ordena sessões pela próxima ocorrência
+function sessoesOrdenadas(){
+  return [...SESSOES_FIXAS]
+    .map(s=>({...s,key:sessaoKey(s),proxima:proximaOcorrencia(s)}))
+    .sort((a,b)=>a.proxima-b.proxima);
+}
+
+// Formata data de uma sessão para exibição
+function formatarData(s){
+  const d=s.proxima;
+  const meses=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  return `${s.label}, ${d.getDate()} ${meses[d.getMonth()]}`;
+}
+
+// Disponibilidade: {sessaoKey: 'iguatemi'|'praca'|'ambos'|null}
+function getDisponibilidade(){return _tradesCache?.disponibilidade||{};}
+
+async function saveDisponibilidade(disp){
+  if(!_tradesCache)_tradesCache={};
+  _tradesCache.disponibilidade=disp;
+  await saveTrades(_tradesCache).catch(e=>console.error('saveDisponibilidade:',e));
+  showAutosave();
+}
+
+function renderSessoesTrocas(){
+  const ct=document.getElementById('sessoes-container-trocas');
+  if(!ct)return;
+  const disp=getDisponibilidade();
+  const sessoes=sessoesOrdenadas();
+  // Agrupar por dia
+  const grupos={};
+  sessoes.forEach(s=>{
+    const k=s.label;
+    if(!grupos[k])grupos[k]=[];
+    grupos[k].push(s);
+  });
+  ct.innerHTML='';
+  Object.entries(grupos).forEach(([dia,items])=>{
+    const titulo=document.createElement('div');
+    titulo.className='sessao-dia-titulo';
+    titulo.textContent=dia;
+    ct.appendChild(titulo);
+    items.forEach(s=>{
+      const val=disp[s.key]||null;
+      const div=document.createElement('div');
+      div.className='sessao-item';
+      div.innerHTML=`
+        <div class="sessao-info">
+          <div class="sessao-hora">${s.inicio}–${s.fim}</div>
+        </div>
+        <div class="sessao-local-btns">
+          <button class="loc-btn ${val==='iguatemi'||val==='ambos'?'sel-iguatemi':''}"
+            onclick="toggleLocal('${s.key}','iguatemi')">Iguatemi</button>
+          <button class="loc-btn ${val==='praca'||val==='ambos'?'sel-praca':''}"
+            onclick="toggleLocal('${s.key}','praca')">Praça XV</button>
+        </div>`;
+      ct.appendChild(div);
+    });
+  });
+}
+
+async function toggleLocal(key,local){
+  const disp={...getDisponibilidade()};
+  const cur=disp[key]||null;
+  if(local==='iguatemi'){
+    if(cur==='iguatemi')disp[key]=null;
+    else if(cur==='praca')disp[key]='ambos';
+    else if(cur==='ambos')disp[key]='praca';
+    else disp[key]='iguatemi';
+  } else {
+    if(cur==='praca')disp[key]=null;
+    else if(cur==='iguatemi')disp[key]='ambos';
+    else if(cur==='ambos')disp[key]='iguatemi';
+    else disp[key]='praca';
+  }
+  if(!disp[key])delete disp[key];
+  await saveDisponibilidade(disp);
+  renderSessoesTrocas();
+}
+
+// Verifica se dois usuários têm o mesmo local em uma sessão
+function localEmComum(dispMinha,dispDele,key){
+  const meu=dispMinha[key];const dele=dispDele[key];
+  if(!meu||!dele)return null;
+  const locaisMeus=meu==='ambos'?['iguatemi','praca']:[meu];
+  const locaisDele=dele==='ambos'?['iguatemi','praca']:[dele];
+  const em=locaisMeus.filter(l=>locaisDele.includes(l));
+  if(!em.length)return null;
+  return em.map(l=>l==='iguatemi'?'Shopping Iguatemi':'Praça XV').join(' ou ');
+}
+
+// ─── Confirmações ───────────────────────────────────────────────────
+// confirmacoes: {usuario_a_id, usuario_b_id, sessao_key, confirmado_a, confirmado_b}
+// usuario_a é sempre o UUID menor (para garantir unicidade do par)
+function parIds(uid1,uid2){return uid1<uid2?[uid1,uid2]:[uid2,uid1];}
+
+// Cache de confirmações — carregado uma vez por renderMatches
+let _confirmacoesCache=null;
+
+async function carregarTodasConfirmacoes(){
+  try{
+    const [rows1,rows2]=await Promise.all([
+      sbFetch(`/rest/v1/confirmacoes?usuario_a_id=eq.${currentUserId}&select=*`),
+      sbFetch(`/rest/v1/confirmacoes?usuario_b_id=eq.${currentUserId}&select=*`)
+    ]);
+    _confirmacoesCache=[...(rows1||[]),...(rows2||[])];
+  }catch(e){
+    console.error('[confirmacoes] ERRO ao carregar:',e);
+    _confirmacoesCache=[];
+  }
+}
+
+function getConfirmacaoLocal(outroId){
+  if(!_confirmacoesCache)return null;
+  return _confirmacoesCache.find(r=>
+    (r.usuario_a_id===currentUserId&&r.usuario_b_id===outroId)||
+    (r.usuario_a_id===outroId&&r.usuario_b_id===currentUserId)
+  )||null;
+}
+
+async function confirmarSessao(outroId,sessaoK){
+  const [a,b]=parIds(currentUserId,outroId);
+  const euSouA=currentUserId===a;
+
+  // Buscar estado atual
+  // Usar cache local (carregado no início de renderMatches)
+  const confAtual=getConfirmacaoLocal(outroId);
+
+  // Lógica clara:
+  // Se não existe confirmação → eu estou sugerindo (meu lado = true, outro = false)
+  // Se existe e a sessao_key é a MESMA que eu sugeri → outro está confirmando (ambos = true)
+  // Se existe e a sessao_key é DIFERENTE → eu estou sugerindo outra (reseta ambos, meu lado = true)
+  let novoA, novoB;
+  if(!confAtual){
+    // Primeira sugestão — só eu confirmei
+    novoA=euSouA; novoB=!euSouA;
+  } else if(confAtual.sessao_key===sessaoK){
+    // Mesma sessão que já foi sugerida — o outro está aceitando → ambos true
+    novoA=true; novoB=true;
+  } else {
+    // Sessão diferente — nova sugestão, reseta o outro lado
+    novoA=euSouA; novoB=!euSouA;
+  }
+
+  try{
+    const payload={usuario_a_id:a,usuario_b_id:b,sessao_key:sessaoK,confirmado_a:novoA,confirmado_b:novoB};
+    if(!confAtual){
+      await sbFetch('/rest/v1/confirmacoes',{
+        method:'POST',
+        headers:{'Prefer':'return=representation'},
+        body:JSON.stringify(payload)
+      });
+    } else {
+      await sbFetch(`/rest/v1/confirmacoes?usuario_a_id=eq.${a}&usuario_b_id=eq.${b}`,{
+        method:'PATCH',
+        headers:{'Prefer':'return=representation'},
+        body:JSON.stringify({sessao_key:sessaoK,confirmado_a:novoA,confirmado_b:novoB})
+      });
+    }
+  }catch(e){
+    console.error('[confirmarSessao] ERRO:',e);
+    return;
+  }
+
+  // Atualizar cache local imediatamente para evitar race condition com o banco
+  if(!_confirmacoesCache)_confirmacoesCache=[];
+  const idx=_confirmacoesCache.findIndex(r=>
+    (r.usuario_a_id===a&&r.usuario_b_id===b)||
+    (r.usuario_a_id===b&&r.usuario_b_id===a)
+  );
+  const novoRegistro={usuario_a_id:a,usuario_b_id:b,sessao_key:sessaoK,confirmado_a:novoA,confirmado_b:novoB};
+  if(idx>=0)_confirmacoesCache[idx]=novoRegistro;
+  else _confirmacoesCache.push(novoRegistro);
+
+  // Re-renderizar usando o cache local já atualizado (não busca do banco de novo)
+  _allUsersCache=null;
+  await renderMatches(true).catch(e=>console.error(e));
+}
+
+function sessaoFimTimestamp(s){
+  // Retorna o timestamp de fim da próxima ocorrência FUTURA da sessão
+  // Se a sessão desta semana ainda não passou, retorna o fim dela esta semana
+  // Se já passou, retorna o fim da próxima semana
+  const agora=new Date();
+  const [hf,mf]=s.fim.split(':').map(Number);
+  const diasAte=(s.dia-agora.getDay()+7)%7;
+  const d=new Date(agora);
+  d.setDate(agora.getDate()+diasAte);
+  d.setHours(hf,mf,0,0);
+  // Se o fim desta semana já passou, avança 7 dias
+  if(d<=agora) d.setDate(d.getDate()+7);
+  return d;
+}
+
+async function cancelarConfirmacao(outroId){
+  const [a,b]=parIds(currentUserId,outroId);
+  // Deletar a confirmação do par
+  await sbFetch(
+    `/rest/v1/confirmacoes?usuario_a_id=eq.${a}&usuario_b_id=eq.${b}`,
+    {method:'DELETE',headers:{'Prefer':'return=minimal'}}
+  ).catch(e=>console.error('[cancelar] ERRO:',e));
+  // Invalidar caches e re-renderizar
+  _allUsersCache=null;
+  _confirmacoesCache=null;
+  await renderMatches().catch(e=>console.error(e));
+}
+
+async function resetConfirmacoesExpiradas(){
+  // Buscar confirmações para o reset (não usa cache pois roda antes de carregarTodasConfirmacoes)
+  const [rows,rows2]=await Promise.all([
+    sbFetch(`/rest/v1/confirmacoes?usuario_a_id=eq.${currentUserId}&select=*`).catch(()=>[]),
+    sbFetch(`/rest/v1/confirmacoes?usuario_b_id=eq.${currentUserId}&select=*`).catch(()=>[])
+  ]);
+  const todas=[...(rows||[]),...(rows2||[])];
+  if(!todas.length)return;
+  const agora=new Date();
+  for(const c of todas){
+    const s=SESSOES_FIXAS.find(x=>sessaoKey(x)===c.sessao_key);
+    if(!s)continue;
+    // A confirmação expira quando o fim da sessão desta semana já passou
+    // sessaoFimTimestamp retorna o próximo fim FUTURO
+    // Se esse futuro é mais de 6 dias à frente, significa que a sessão desta semana já passou
+    const proximoFim=sessaoFimTimestamp(s);
+    const diasAteProximoFim=(proximoFim-agora)/(1000*60*60*24);
+    const sessaoEstaSemanaJaPassou=diasAteProximoFim>6;
+    if(sessaoEstaSemanaJaPassou){
+      const [a,b]=parIds(c.usuario_a_id,c.usuario_b_id);
+      await sbFetch(
+        `/rest/v1/confirmacoes?usuario_a_id=eq.${a}&usuario_b_id=eq.${b}`,
+        {method:'DELETE',headers:{'Prefer':'return=minimal'}}
+      ).catch(()=>{});
+    }
+  }
+}
+async function renderMatches(usarCacheConfirmacoes=false){
+  const ct=document.getElementById('matches-container');
+  ct.innerHTML='<div class="match-empty"><div class="match-empty-icon">⏳</div><div class="match-empty-title">Buscando matches…</div></div>';
+
+  // Sempre buscar dados frescos de usuários
+  _allUsersCache=null;
+
+  // Só recarregar confirmações do banco se não estivermos usando cache local já atualizado
+  if(!usarCacheConfirmacoes){
+    _confirmacoesCache=null;
+    await resetConfirmacoesExpiradas().catch(()=>{});
+    await carregarTodasConfirmacoes();
+  }
+
+  // Verificar se usuário preencheu disponibilidade
+  const dispMinha=getDisponibilidade();
+  if(!Object.keys(dispMinha).length){
+    ct.innerHTML=`<div class="matches-sem-sessoes">
+      <div class="matches-sem-sessoes-icon">📅</div>
+      <div class="matches-sem-sessoes-title">Defina sua disponibilidade</div>
+      <div class="matches-sem-sessoes-text">Selecione seus horários disponíveis antes de visualizar os matches.</div>
+      <button onclick="showTab('trocas')" style="margin-top:0.85rem;width:100%;padding:0.75rem;background:var(--gold);color:#000;border:none;border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:900;cursor:pointer;">
+        ⚙️ Ir para Trocas e Horários
+      </button>
+    </div>`;
+    return;
+  }
+
+  let users;
+  try{users=await getAllUsers();}
+  catch(e){ct.innerHTML=`<div class="match-empty"><div class="match-empty-icon">❌</div><div class="match-empty-title">Erro ao buscar usuários</div><div class="match-empty-text">${e.message}</div></div>`;return;}
+  ct.innerHTML='';
+  const myOf=getOferecoSet(currentUsername,users);
+  const myPr=getPrecisoSet(currentUsername,users);
+  if(!myOf.size||!myPr.size){
+    ct.innerHTML=`<div class="match-empty"><div class="match-empty-icon">🔍</div><div class="match-empty-title">Configure suas trocas</div><div class="match-empty-text">Vá até a aba Trocas e configure o que você oferece e o que precisa.</div></div>`;
+    return;
+  }
+  const myRar=getTrades().raridade||'qualquer';
+
+  const matches=[];
+  Object.entries(users).forEach(([username,data])=>{
+    if(username===currentUsername)return;
+    const thOf=getOferecoSet(username,users);
+    const thPr=getPrecisoSet(username,users);
+    const thRar=(data.trades?.raridade)||'qualquer';
+
+    // Candidatos base: interseção de oferta/necessidade, ordenados por prestígio
+    const candidatosDou=sortByPrioridade([...myOf].filter(k=>thPr.has(k)));
+    const candidatosRec=sortByPrioridade([...thOf].filter(k=>myPr.has(k)));
+
+    // Lógica de raridade: a restrição de cada lado se aplica APENAS ao que
+    // aquela pessoa OFERECE — não ao que ela recebe.
+    // Ex: eu exijo mesmo nível → só ofereço normal por normal e brilhante por brilhante
+    //     mas posso RECEBER qualquer coisa se o outro aceitar.
+    // Ex: amigo aceita qualquer → ele pode me dar uma brilhante mesmo eu dando uma normal.
+
+    let euDou, euRec;
+
+    if(myRar==='qualquer'&&thRar==='qualquer'){
+      // Ambos aceitam qualquer — sem filtro
+      euDou=candidatosDou;
+      euRec=candidatosRec;
+    } else {
+      // Aplicar restrição de cada lado independentemente:
+      // euDou: filtrado pela minha regra (o que EU ofereço)
+      // euRec: filtrado pela regra deles (o que ELES oferecem)
+
+      if(myRar==='igual'){
+        // Eu só ofereço normal↔normal ou brilhante↔brilhante
+        // Para cada figurinha que eu dou, o que recebo precisa ter mesma raridade
+        // Mas candidatosRec é independente — vamos emparelhar depois por raridade
+        const douFoil=candidatosDou.filter(k=>getFigInfo(k).foil);
+        const douComum=candidatosDou.filter(k=>!getFigInfo(k).foil);
+        const recFoil=candidatosRec.filter(k=>getFigInfo(k).foil);
+        const recComum=candidatosRec.filter(k=>!getFigInfo(k).foil);
+        const qtdFoil=Math.min(douFoil.length,recFoil.length);
+        const qtdComum=Math.min(douComum.length,recComum.length);
+        euDou=[...douFoil.slice(0,qtdFoil),...douComum.slice(0,qtdComum)];
+        euRec=[...recFoil.slice(0,qtdFoil),...recComum.slice(0,qtdComum)];
+      } else if(thRar==='igual'){
+        // Eles exigem mesmo nível no que oferecem — filtra o que ELES dão
+        // Eu aceito qualquer, então candidatosDou fica livre
+        // Mas o par precisa respeitar a regra deles: eles só oferecem brilhante se eu der brilhante
+        const recFoil=candidatosRec.filter(k=>getFigInfo(k).foil);
+        const recComum=candidatosRec.filter(k=>!getFigInfo(k).foil);
+        const douFoil=candidatosDou.filter(k=>getFigInfo(k).foil);
+        const douComum=candidatosDou.filter(k=>!getFigInfo(k).foil);
+        const qtdFoil=Math.min(douFoil.length,recFoil.length);
+        const qtdComum=Math.min(douComum.length,recComum.length);
+        euDou=[...douFoil.slice(0,qtdFoil),...douComum.slice(0,qtdComum)];
+        euRec=[...recFoil.slice(0,qtdFoil),...recComum.slice(0,qtdComum)];
+      }
+    }
+
+    const tp=Math.min(euDou.length,euRec.length);if(!tp)return;
+    const userId=data.userId||username;
+    // Verificar se há sessões em comum com este usuário
+    const dispDeleMatch=(data.trades?.disponibilidade)||{};
+    const temSessaoComum=sessoesOrdenadas().some(s=>localEmComum(dispMinha,dispDeleMatch,s.key));
+    matches.push({username,nome:data.nome||username,userId,euDou,euRec,tp,temSessaoComum,
+      pares:Array.from({length:tp},(_,i)=>({dou:euDou[i],rec:euRec[i]})),
+      extrasD:euDou.slice(tp),extrasR:euRec.slice(tp)});
+  });
+  if(!matches.length){
+    ct.innerHTML=`<div class="match-empty"><div class="match-empty-icon">😔</div><div class="match-empty-title">Nenhum match ainda</div><div class="match-empty-text">Convide seus amigos colecionadores para o app!</div></div>`;
+    return;
+  }
+  matches.sort((a,b)=>{
+    // 1. Priorizar quem tem sessão em comum
+    if(a.temSessaoComum!==b.temSessaoComum)return a.temSessaoComum?-1:1;
+    // 2. Desempate por quantidade de trocas
+    return b.tp-a.tp;
+  });
+  for(const m of matches){
+    const init=m.nome.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const card=document.createElement('div');card.className='match-card';
+    let html=m.pares.map(p=>{
+      const d=getFigInfo(p.dou);const r=getFigInfo(p.rec);
+      return`<div class="match-pair"><span class="pair-give">${d.code}</span><span style="font-size:0.65rem;color:var(--text2);flex:1">${d.flag} ${d.name}</span><span class="pair-arrow">→</span><span class="pair-get">${r.code}</span><span style="font-size:0.65rem;color:var(--text2)">${r.flag} ${r.name}</span></div>`;
+    }).join('');
+    // Extras: só mostrar se quantidade for razoável (≤20), limitado a 5 itens + resumo
+    if(m.extrasD.length>0&&m.extrasD.length<=20){
+      const amostra=m.extrasD.slice(0,5);
+      const resto=m.extrasD.length-amostra.length;
+      html+=`<div style="font-size:.65rem;color:var(--text3);padding:5px 0 2px;font-weight:800">Você ainda pode oferecer ${m.extrasD.length} figurinha${m.extrasD.length>1?'s':''} a mais:</div>`;
+      html+=amostra.map(k=>{const f=getFigInfo(k);return`<div class="match-pair"><span class="pair-give">${f.code}</span><span class="pair-names">${f.flag} ${f.name}</span></div>`;}).join('');
+      if(resto>0)html+=`<div style="font-size:.62rem;color:var(--text3);padding:3px 0 0;font-style:italic">…e mais ${resto} outras</div>`;
+    } else if(m.extrasD.length>20){
+      html+=`<div style="font-size:.65rem;color:var(--text3);padding:5px 0 2px;font-weight:800">+ ${m.extrasD.length} figurinhas extras disponíveis para negociar</div>`;
+    }
+    if(m.extrasR.length>0&&m.extrasR.length<=20){
+      const amostra=m.extrasR.slice(0,5);
+      const resto=m.extrasR.length-amostra.length;
+      html+=`<div style="font-size:.65rem;color:var(--text3);padding:5px 0 2px;font-weight:800">Você ainda pode receber ${m.extrasR.length} figurinha${m.extrasR.length>1?'s':''} a mais:</div>`;
+      html+=amostra.map(k=>{const f=getFigInfo(k);return`<div class="match-pair"><span class="pair-get">${f.code}</span><span class="pair-names">${f.flag} ${f.name}</span></div>`;}).join('');
+      if(resto>0)html+=`<div style="font-size:.62rem;color:var(--text3);padding:3px 0 0;font-style:italic">…e mais ${resto} outras</div>`;
+    } else if(m.extrasR.length>20){
+      html+=`<div style="font-size:.65rem;color:var(--text3);padding:5px 0 2px;font-weight:800">+ ${m.extrasR.length} figurinhas extras que você pode receber</div>`;
+    }
+    // Sessões em comum
+    const dispDele=(users[m.username]?.trades?.disponibilidade)||{};
+    const sessoesComuns=sessoesOrdenadas().filter(s=>{
+      const local=localEmComum(dispMinha,dispDele,s.key);
+      return local!==null;
+    });
+
+    // Buscar confirmação existente para este par
+    const conf=getConfirmacaoLocal(m.userId);
+    const euSouA=conf?currentUserId===conf.usuario_a_id:currentUserId<m.userId;
+    const confStatus=conf?(euSouA?conf.confirmado_a:conf.confirmado_b):false;
+    const outroConfirmou=conf?(euSouA?conf.confirmado_b:conf.confirmado_a):false;
+    const ambosConfirmaram=conf&&conf.confirmado_a&&conf.confirmado_b;
+    const euSugeri2=conf&&!ambosConfirmaram&&confStatus;
+    const outroSugeriu2=conf&&!ambosConfirmaram&&outroConfirmou;
+
+    // ── Construir HTML de sessões ──────────────────────────────────────
+    // A abordagem: mostrar PRIMEIRO o estado da confirmação atual (se houver),
+    // depois as demais sessões em comum disponíveis para sugestão
+    let sessoesHtml='';
+    let headerBadge='';
+
+    // Helpers
+    const euSugeri=conf&&!ambosConfirmaram&&confStatus;
+    const outroSugeriu=conf&&!ambosConfirmaram&&outroConfirmou;
+
+    function sessaoInfo(key){
+      const s=SESSOES_FIXAS.find(x=>sessaoKey(x)===key);
+      if(!s)return null;
+      return{...s,key,proxima:proximaOcorrencia(s)};
+    }
+
+    // 1. Confirmação mútua
+    if(ambosConfirmaram&&conf){
+      const si=sessaoInfo(conf.sessao_key);
+      if(si){
+        sessoesHtml=`<div class="match-sessoes"><div class="match-sessao-item">
+          <div>
+            <div class="match-sessao-info">📅 ${formatarData(si)} · ${si.inicio}–${si.fim}</div>
+            <div class="match-sessao-local">🎉 Encontro confirmado!</div>
+          </div>
+          <div class="badge-group">
+            <span class="status-badge status-confirmado">✅ Confirmado</span>
+            <span class="status-badge status-cancelar" onclick="cancelarConfirmacao('${m.userId}')">Cancelar</span>
+          </div>
+        </div></div>`;
+        headerBadge=`<span style="font-size:0.65rem;font-weight:800;color:#4ade80;background:rgba(22,163,74,0.15);border:1px solid #4ade80;padding:2px 7px;border-radius:20px;margin-left:6px">✅ Confirmado</span>`;
+      }
+    }
+    // 2. Eu sugeri, aguardando resposta
+    else if(euSugeri&&conf){
+      const si=sessaoInfo(conf.sessao_key);
+      if(si){
+        sessoesHtml='<div class="match-sessoes">';
+        sessoesHtml+=`<div class="match-sessao-item">
+          <div>
+            <div class="match-sessao-info">📅 ${formatarData(si)} · ${si.inicio}–${si.fim}</div>
+            <div class="match-sessao-local">📍 ${localEmComum(dispMinha,dispDele,si.key)||'Local a combinar'} · Aguardando @${m.username}</div>
+          </div>
+          <div class="badge-group">
+            <span class="status-badge status-pendente">📤 Aguardando resposta</span>
+            <span class="status-badge status-cancelar" onclick="cancelarConfirmacao('${m.userId}')">Cancelar</span>
+          </div>
+        </div>`;
+        // Outros horários disponíveis para o caso de querer mudar de ideia
+        const outrasComuns=sessoesComuns.filter(s=>s.key!==conf.sessao_key);
+        if(outrasComuns.length){
+          sessoesHtml+=`<div style="font-size:0.65rem;color:var(--text3);font-weight:800;padding:6px 0 4px;text-transform:uppercase;letter-spacing:0.8px">Outros horários disponíveis</div>`;
+          outrasComuns.forEach(s=>{
+            const local=localEmComum(dispMinha,dispDele,s.key);
+            sessoesHtml+=`<div class="match-sessao-item">
+              <div>
+                <div class="match-sessao-info">📅 ${formatarData(s)} · ${s.inicio}–${s.fim}</div>
+                <div class="match-sessao-local">📍 ${local}</div>
+              </div>
+              <span class="status-badge status-sugerir" onclick="confirmarSessao('${m.userId}','${s.key}')">Sugerir →</span>
+            </div>`;
+          });
+        }
+        sessoesHtml+='</div>';
+        headerBadge=`<span style="font-size:0.65rem;font-weight:800;color:var(--gold2);background:rgba(212,160,23,0.1);border:1px solid var(--gold2);padding:2px 7px;border-radius:20px;margin-left:6px">📤 Sugestão enviada</span>`;
+      }
+    }
+    // 3. O outro sugeriu, aguardando minha resposta
+    else if(outroSugeriu&&conf){
+      const si=sessaoInfo(conf.sessao_key);
+      if(si){
+        // Sessão sugerida em destaque
+        sessoesHtml='<div class="match-sessoes">';
+        sessoesHtml+=`<div class="match-sessao-item">
+          <div>
+            <div class="match-sessao-info">📅 ${formatarData(si)} · ${si.inicio}–${si.fim}</div>
+            <div class="match-sessao-local">Sugestão de @${m.username}</div>
+          </div>
+          <div class="badge-group">
+            <span class="status-badge status-recebido">📥 Recebida</span>
+            <span class="status-badge status-confirmar" onclick="confirmarSessao('${m.userId}','${conf.sessao_key}')">Confirmar</span>
+            <span class="status-badge status-rejeitar" onclick="cancelarConfirmacao('${m.userId}')">Rejeitar</span>
+          </div>
+        </div>`;
+        // Demais sessões em comum (exceto a sugerida) — para referência
+        const outrasComuns=sessoesComuns.filter(s=>s.key!==conf.sessao_key);
+        if(outrasComuns.length){
+          sessoesHtml+=`<div style="font-size:0.65rem;color:var(--text3);font-weight:800;padding:6px 0 4px;text-transform:uppercase;letter-spacing:0.8px">Outros horários em comum</div>`;
+          outrasComuns.forEach(s=>{
+            const local=localEmComum(dispMinha,dispDele,s.key);
+            sessoesHtml+=`<div class="match-sessao-item">
+              <div>
+                <div class="match-sessao-info">📅 ${formatarData(s)} · ${s.inicio}–${s.fim}</div>
+                <div class="match-sessao-local">📍 ${local}</div>
+              </div>
+              <span class="status-badge status-sugerir" onclick="confirmarSessao('${m.userId}','${s.key}')">Sugerir →</span>
+            </div>`;
+          });
+        }
+        sessoesHtml+='</div>';
+        headerBadge=`<span style="font-size:0.65rem;font-weight:800;color:var(--blue-light);background:rgba(96,165,250,0.1);border:1px solid var(--blue-light);padding:2px 7px;border-radius:20px;margin-left:6px">📥 Sugestão recebida</span>`;
+      }
+    }
+    // 4. Sem confirmação — mostrar sessões em comum para sugerir
+    else if(sessoesComuns.length){
+      sessoesHtml='<div class="match-sessoes">';
+      sessoesComuns.forEach(s=>{
+        const local=localEmComum(dispMinha,dispDele,s.key);
+        sessoesHtml+=`<div class="match-sessao-item">
+          <div>
+            <div class="match-sessao-info">📅 ${formatarData(s)} · ${s.inicio}–${s.fim}</div>
+            <div class="match-sessao-local">📍 ${local}</div>
+          </div>
+          <span class="status-badge status-sugerir" onclick="confirmarSessao('${m.userId}','${s.key}')">Sugerir →</span>
+        </div>`;
+      });
+      sessoesHtml+='</div>';
+      headerBadge=`<span style="font-size:0.65rem;font-weight:800;color:var(--gold2);background:rgba(212,160,23,0.1);border:1px solid var(--gold2);padding:2px 7px;border-radius:20px;margin-left:6px">${sessoesComuns.length} ${sessoesComuns.length>1?'sessões':'sessão'} em comum</span>`;
+    }
+
+    // Aviso de sem horários compatíveis — aparece ao expandir
+    const semHorarioHtml=!m.temSessaoComum?`
+      <div class="match-sem-horario" style="padding:0.7rem 0.9rem;background:rgba(232,25,44,0.08);border-top:1px solid rgba(232,25,44,0.2)">
+        <div style="font-size:0.75rem;color:#f87171;font-weight:700">
+          ⚠️ Sem horários compatíveis — atualize sua disponibilidade na aba Trocas para encontrar horários em comum.
+        </div>
+      </div>`:'';
+
+    card.innerHTML=`
+      <div class="match-card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="match-user-info">
+          <div class="match-avatar">${init}</div>
+          <div>
+            <div class="match-username">${m.nome}${headerBadge}</div>
+            <div class="match-sub">@${m.username} · dou ${m.euDou.length} / recebo ${m.euRec.length}${!m.temSessaoComum?' · <span style="color:#f87171">sem horário comum</span>':''}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div><div class="match-score" style="${!m.temSessaoComum?'color:var(--text3)':''}">${m.tp}</div><div class="match-score-label">trocas</div></div>
+          <span class="match-chevron">▼</span>
+        </div>
+      </div>
+      ${sessoesHtml}
+      ${semHorarioHtml}
+      <div class="match-detail"><div class="match-detail-title">Você dá → você recebe</div><div class="match-pair-list">${html}</div></div>`;
+    ct.appendChild(card);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// TABS & INIT
+// ═══════════════════════════════════════════════════════════
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  const idx=['inicio','colecao','trocas','pessoas'].indexOf(tab);
+  document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
+  if(tab==='colecao')renderColecao();
+  if(tab==='trocas'){renderTrocas();renderSessoesTrocas();}
+  if(tab==='pessoas')renderMatches().catch(e=>console.error('renderMatches:',e));
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  const s=getCurrentUser();
+  if(s)enterApp(s.username,s.id).catch(e=>{
+    console.error('Sessão inválida:',e);
+    clearSession();
+  });
+});
+</script>
+</body>
+</html>
