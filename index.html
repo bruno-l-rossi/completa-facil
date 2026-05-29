@@ -557,8 +557,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg0);color:var(--text1);mi
         <div class="troca-section-title">Preferência de Raridade</div>
         <div class="troca-desc">Como você aceita trocar suas figurinhas brilhantes?</div>
         <div class="toggle-pair">
-          <button class="tbtn" id="rar-qualquer" onclick="setRaridade('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.68rem;font-weight:600">Brilhante troca com comum</span></button>
           <button class="tbtn" id="rar-igual"    onclick="setRaridade('igual')">⚖️ Mesmo nível<br><span style="font-size:0.68rem;font-weight:600">Brilhante só com brilhante</span></button>
+          <button class="tbtn" id="rar-qualquer" onclick="setRaridade('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.68rem;font-weight:600">Brilhante troca com comum</span></button>
         </div>
       </div>
       <div class="troca-section">
@@ -612,8 +612,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg0);color:var(--text1);mi
       <div class="troca-section-title">Preferência de Raridade</div>
       <div class="troca-desc">Como você aceita trocar suas figurinhas brilhantes?</div>
       <div class="toggle-pair">
-        <button class="tbtn" id="pop-rar-qualquer" onclick="popSetRar('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.65rem;font-weight:600">Brilhante troca com comum</span></button>
         <button class="tbtn" id="pop-rar-igual"    onclick="popSetRar('igual')">⚖️ Mesmo nível<br><span style="font-size:0.65rem;font-weight:600">Brilhante só com brilhante</span></button>
+        <button class="tbtn" id="pop-rar-qualquer" onclick="popSetRar('qualquer')">🔀 Qualquer por qualquer<br><span style="font-size:0.65rem;font-weight:600">Brilhante troca com comum</span></button>
       </div>
     </div>
 
@@ -647,7 +647,7 @@ function normCode(s){return norm(s).replace(/\s+/g,'');} // remove espaços para
 // ═══════════════════════════════════════════════════════════
 // DADOS — 980 figurinhas
 // ═══════════════════════════════════════════════════════════
-const INTRO={id:'FWC',nome:'Introdução & FIFA Museum',flag:'🏆',grupo:'INTRO',figurinhas:[
+const INTRO={id:'FWC',nome:'Introdução',flag:'🏆',grupo:'INTRO',figurinhas:[
   {code:'00',   name:'Logo Panini',        foil:true},
   {code:'FWC1', name:'Emblema Oficial',    foil:true},
   {code:'FWC2', name:'Emblema Oficial 2',  foil:true},
@@ -657,6 +657,9 @@ const INTRO={id:'FWC',nome:'Introdução & FIFA Museum',flag:'🏆',grupo:'INTRO
   {code:'FWC6', name:'Canadá — Sede',      foil:true},
   {code:'FWC7', name:'México — Sede',      foil:true},
   {code:'FWC8', name:'EUA — Sede',         foil:true},
+]};
+
+const FIFA_MUSEUM={id:'MUSEUM',nome:'FIFA Museum',flag:'🏆',grupo:'MUSEUM',figurinhas:[
   {code:'FWC9', name:'Itália 1934',        foil:true},
   {code:'FWC10',name:'Uruguai 1950',       foil:true},
   {code:'FWC11',name:'Alemanha Oc. 1954',  foil:true},
@@ -729,7 +732,7 @@ const SELECOES=[
   mkSel('PAN','Panamá','🇵🇦','L',['Orlando Mosquera','Luis Mejía','Fidel Escobar','Andrés Andrade','Michael Amir Murillo','Eric Davis','José Córdoba','César Blackman','Cristian Martínez','Aníbal Godoy','Adalberto Carrasquilla','Édgar Bárcenas','Carlos Harvey','Ismael Díaz','José Fajardo','Cecilio Waterman','José Luis Rodríguez','Alberto Quintero']),
 ];
 
-const TODOS_GRUPOS=[INTRO,...SELECOES];
+const TODOS_GRUPOS=[INTRO,...SELECOES,FIFA_MUSEUM];
 const TOTAL_FIGS=980;
 let currentUsername=null;
 let currentUserId=null;
@@ -761,7 +764,7 @@ let _tradesCache=null;
 let _allUsersCache=null;
 
 function getCollection(){return _colCache||{};}
-function getTrades(){return _tradesCache||{modoOfereco:'all',modoPreciso:'all',oferecoCustom:[],precisoCustom:[],raridade:'qualquer'};}
+function getTrades(){return _tradesCache||{modoOfereco:'all',modoPreciso:'all',oferecoCustom:[],precisoCustom:[],raridade:'igual'};}
 
 async function ensureColecaoRow(){
   const rows=await sbFetch(`/rest/v1/colecoes?usuario_id=eq.${currentUserId}&select=id`);
@@ -910,7 +913,7 @@ function validarUsername(input){
 }
 
 // ── Popup de configuração de trocas ─────────────────────────────────
-let popRar='qualquer',popOf='all',popPr='all';
+let popRar='igual',popOf='all',popPr='all';
 
 function popSetRar(v){
   popRar=v;
@@ -943,8 +946,8 @@ function applyPopBtn(id,ativo,cor){
 function abrirPopupTrocas(){
   // Só mostrar se o app estiver visível (não na tela de login)
   if(document.getElementById('app-screen').style.display==='none')return;
-  popRar='qualquer';popOf='all';popPr='all';
-  popSetRar('qualquer');popSetOf('all');popSetPr('all');
+  popRar='igual';popOf='all';popPr='all';
+  popSetRar('igual');popSetOf('all');popSetPr('all');
   document.getElementById('popup-trocas').style.display='flex';
 }
 async function fecharPopupTrocas(){
@@ -1137,7 +1140,7 @@ function renderColecao(){
     const isOpen=buscaEspec||abertos.has(g.id);
     const card=document.createElement('div');
     card.className='selecao-card'+(isOpen?' open':'');card.dataset.id=g.id;
-    const gl=g.grupo==='INTRO'?'Especiais':('Grupo '+g.grupo);
+    const gl=(g.grupo==='INTRO'||g.grupo==='MUSEUM')?'Especiais':('Grupo '+g.grupo);
     const contLabel=figsVis?`${figsVis.length} result.`:`${tenho}/${total}`;
     card.innerHTML=`<div class="selecao-header-row" onclick="toggleSelecao('${g.id}')">
       <div class="selecao-left"><span class="selecao-flag">${g.flag}</span>
@@ -1208,7 +1211,7 @@ function toggleSelecao(id){document.querySelector(`.selecao-card[data-id="${id}"
 // ═══════════════════════════════════════════════════════════
 // TROCAS
 // ═══════════════════════════════════════════════════════════
-let raridade='qualquer',modoOfereco='all',modoPreciso='all';
+let raridade='igual',modoOfereco='all',modoPreciso='all';
 let oferecoCustom=new Set(),precisoCustom=new Set(),filtroPrecisoSel=null;
 
 function setRaridade(r){
@@ -1237,7 +1240,7 @@ function setModoPreciso(modo){
 }
 function renderTrocas(){
   const t=getTrades();
-  raridade=t.raridade||'qualquer';
+  raridade=t.raridade||'igual';
   modoOfereco=t.modoOfereco||'all';
   modoPreciso=t.modoPreciso||'all';
   oferecoCustom=new Set(t.oferecoCustom||[]);
@@ -1677,14 +1680,14 @@ async function renderMatches(usarCacheConfirmacoes=false){
     ct.innerHTML=`<div class="match-empty"><div class="match-empty-icon">🔍</div><div class="match-empty-title">Configure suas trocas</div><div class="match-empty-text">Vá até a aba Trocas e configure o que você oferece e o que precisa.</div></div>`;
     return;
   }
-  const myRar=getTrades().raridade||'qualquer';
+  const myRar=getTrades().raridade||'igual';
 
   const matches=[];
   Object.entries(users).forEach(([username,data])=>{
     if(username===currentUsername)return;
     const thOf=getOferecoSet(username,users);
     const thPr=getPrecisoSet(username,users);
-    const thRar=(data.trades?.raridade)||'qualquer';
+    const thRar=(data.trades?.raridade)||'igual';
 
     // Candidatos base: interseção de oferta/necessidade, ordenados por prestígio
     const candidatosDou=sortByPrioridade([...myOf].filter(k=>thPr.has(k)));
