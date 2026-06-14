@@ -205,6 +205,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg0);color:var(--text1);mi
 .filter-btn.f-red.active{background:rgba(232,25,44,0.2);border-color:var(--red);color:#f87171;}
 .filter-btn.f-green.active{background:rgba(74,222,128,0.15);border-color:#4ade80;color:#4ade80;}
 .filter-btn.f-gold.active{background:rgba(212,160,23,0.15);border-color:var(--gold2);color:var(--gold2);}
+.acoes-row{display:flex;gap:6px;margin-bottom:0.7rem;}
+.acao-btn{flex:1;padding:0.55rem 0.4rem;background:var(--bg2);border:1.5px solid var(--border2);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:0.74rem;font-weight:800;color:var(--text1);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:all 0.18s;}
+.acao-btn:active{transform:scale(0.97);}
+.acao-btn.a-gold{border-color:rgba(212,160,23,0.5);color:var(--gold2);}
+.acao-btn.a-gold:active{background:rgba(212,160,23,0.15);}
+.acao-btn.a-red{border-color:rgba(232,25,44,0.5);color:#f87171;}
+.acao-btn.a-red:active{background:rgba(232,25,44,0.15);}
+.acao-feedback{font-size:0.72rem;font-weight:700;color:var(--green-light);min-height:1rem;margin-bottom:0.55rem;text-align:center;opacity:0;transition:opacity 0.2s;}
+.acao-feedback.show{opacity:1;}
 .legenda{display:flex;gap:10px;margin-bottom:0.85rem;flex-wrap:wrap;}
 .leg-item{display:flex;align-items:center;gap:4px;font-size:0.66rem;font-weight:700;color:var(--text2);}
 .leg-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
@@ -542,6 +551,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg0);color:var(--text1);mi
         <button class="filter-btn f-gold" onclick="setFiltro('repetidas',this)">Repetidas</button>
         <button class="filter-btn f-green" onclick="setFiltro('tenho',this)">Coletadas</button>
       </div>
+      <div class="acoes-row">
+        <button class="acao-btn a-gold" onclick="resetarRepetidas()">↺ Resetar repetidas</button>
+        <button class="acao-btn a-red" onclick="copiarFaltantes()">📋 Copiar faltantes</button>
+      </div>
+      <div class="acao-feedback" id="acao-feedback"></div>
       <div class="legenda">
         <div class="leg-item"><div class="leg-dot d-vazia"></div>Falta</div>
         <div class="leg-item"><div class="leg-dot d-tenho"></div>Tenho</div>
@@ -1207,6 +1221,52 @@ function updateGrupoProgress(gId,col){
   }
 }
 function toggleSelecao(id){document.querySelector(`.selecao-card[data-id="${id}"]`)?.classList.toggle('open');}
+
+function acaoFeedback(txt,cor){
+  const el=document.getElementById('acao-feedback');if(!el)return;
+  el.textContent=txt;el.style.color=cor||'var(--green-light)';el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// Resetar repetidas: toda figurinha com 2+ vira 1. Faltantes e únicas não mudam.
+async function resetarRepetidas(){
+  const col=getCollection();
+  let qtd=0;
+  for(const code in col){if(col[code]>=2)qtd++;}
+  if(qtd===0){acaoFeedback('Você não tem figurinhas repetidas.','var(--text2)');return;}
+  if(!confirm(`Resetar ${qtd} ${qtd===1?'figurinha repetida':'figurinhas repetidas'}?\n\nTodas com 2 ou mais vão voltar para 1. As que faltam continuam como estão.`))return;
+  for(const code in col){if(col[code]>=2)col[code]=1;}
+  saveCollection(col).catch(e=>console.error('saveCollection:',e));
+  renderColecao();updateStats();
+  acaoFeedback(`✓ ${qtd} ${qtd===1?'repetida zerada':'repetidas zeradas'}.`);
+}
+
+// Copiar faltantes: texto agrupado por seleção com os códigos que faltam.
+async function copiarFaltantes(){
+  const col=getCollection();
+  const linhas=[];
+  let totalFalta=0;
+  TODOS_GRUPOS.forEach(g=>{
+    const faltam=g.figurinhas.filter(f=>(col[f.code]||0)===0);
+    if(faltam.length===0)return;
+    totalFalta+=faltam.length;
+    linhas.push(`${g.nome} ${g.flag}\n${faltam.map(f=>f.code).join(', ')}`);
+  });
+  if(totalFalta===0){acaoFeedback('🎉 Álbum completo! Não falta nada.','var(--gold2)');return;}
+  const texto=`📕 Completa Fácil · faltam ${totalFalta} figurinhas\n\n`+linhas.join('\n\n');
+  try{
+    await navigator.clipboard.writeText(texto);
+    acaoFeedback(`✓ ${totalFalta} faltantes copiadas. Cola no grupo!`);
+  }catch(e){
+    // Fallback pra browsers/contextos sem clipboard API
+    const ta=document.createElement('textarea');
+    ta.value=texto;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.focus();ta.select();
+    let ok=false;try{ok=document.execCommand('copy');}catch(_){}
+    document.body.removeChild(ta);
+    acaoFeedback(ok?`✓ ${totalFalta} faltantes copiadas. Cola no grupo!`:'Não consegui copiar. Tenta de novo.',ok?null:'#f87171');
+  }
+}
 
 // ═══════════════════════════════════════════════════════════
 // TROCAS
